@@ -78,6 +78,7 @@
             android:layout_width="318dp"
             android:layout_height="wrap_content"
             app:cardCornerRadius="10pt"
+            android:padding="8dp"
             android:background="@drawable/welcome_vector2"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
