@@ -8,4 +8,10 @@
     </style>
 
     <style name="Theme.Nutrifish" parent="Base.Theme.Nutrifish" />
+
+    <style name="outlinedBox" parent="Widget.Material3.AutoCompleteTextView.OutlinedBox">
+        <item name="boxStrokeColor">@color/darkGreen</item>
+        <item name="cursorColor">@color/darkGreen</item>
+        <item name="hintTextColor">@color/darkGreen</item>
+    </style>
 </resources>
