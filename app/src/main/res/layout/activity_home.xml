@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
-    tools:context=".ui.main.home.HomeActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
+    tools:context=".ui.main.home.HomeActivity">
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline20"
         android:layout_width="match_parent"
@@ -192,15 +192,14 @@
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:maxImageSize="50dp"
         android:backgroundTint="@color/sageGreen"
-        app:fabCustomSize="80dp"
+        android:contentDescription="@string/fab_analyze"
         android:src="@drawable/button_scan_vector"
-        app:layout_constraintStart_toStartOf="parent"
+        app:fabCustomSize="70dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="parent"/>
-
+        app:layout_constraintStart_toStartOf="parent"
+        app:maxImageSize="50dp" />
 
 
 
