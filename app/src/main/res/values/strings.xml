@@ -33,4 +33,8 @@
     <string name="image_placeholder">Image placeholder</string>
     <string name="bt_camera_text">Camera</string>
     <string name="bt_gallery_text">Gallery</string>
+    <string name="fab_postRecipe">Post Recipe</string>
+    <string name="placeholder_name">John Doe</string>
+    <string name="placeholder_user_name">\@JohnDoe</string>
+    <string name="myPost_title">My Posts</string>
 </resources>

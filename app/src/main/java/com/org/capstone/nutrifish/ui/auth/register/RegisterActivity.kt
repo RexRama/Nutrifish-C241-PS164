@@ -24,10 +24,5 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun setButtonAction() {
-        val toLogin = binding.btRegisterToLogin
-        toLogin.setOnClickListener {
-            Utils().toLogin(this)
-            finish()
-        }
     }
 }

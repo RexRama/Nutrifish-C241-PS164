@@ -177,6 +177,18 @@
             tools:listitem="@layout/recipe_item" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/fab_postRecipe"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:backgroundTint="@color/sageGreen"
+        android:src="@drawable/baseline_create_24"
+        android:contentDescription="@string/fab_postRecipe"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintBottom_toTopOf="@id/bottom_navbar"/>
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navbar"
         android:layout_width="match_parent"
