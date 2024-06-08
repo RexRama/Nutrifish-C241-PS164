@@ -11,6 +11,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.org.capstone.nutrifish.R
 import com.org.capstone.nutrifish.databinding.ActivitySplashBinding
 import com.org.capstone.nutrifish.ui.auth.welcome.WelcomeActivity
+import com.org.capstone.nutrifish.ui.main.MainActivity
 
 @SuppressLint("CustomSplashScreen")
 class SplashActivity : AppCompatActivity() {
@@ -29,7 +30,7 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun setWelcome() {
-        val toWelcome = Intent(this, WelcomeActivity::class.java)
+        val toWelcome = Intent(this, MainActivity::class.java)
         toWelcome.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
         Handler(Looper.getMainLooper()).postDelayed({
             startActivity(toWelcome)
