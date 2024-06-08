@@ -58,12 +58,12 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline35"
+        android:id="@+id/guideline30"
         android:layout_width="wrap_content"
         android:layout_height="64dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintGuide_percent="0.35"
+        app:layout_constraintGuide_percent="0.3"
         app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -72,7 +72,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/guideline35">
+        app:layout_constraintTop_toBottomOf="@id/guideline30">
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/card_welcome"
@@ -128,38 +128,39 @@
                     android:layout_marginTop="4dp"
                     android:layout_marginRight="4dp"
                     android:hint="@string/email"
-                    android:padding="10dp">
+                    android:padding="10dp"
+                    app:endIconMode="clear_text">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edit_login_email"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:ems="10"
-                    android:inputType="textEmailAddress"
-                    android:paddingStart="20dp"
-                    android:paddingEnd="40dp" />
+                    <com.org.capstone.nutrifish.ui.customview.EmailEditText
+                        android:id="@+id/edit_login_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:ems="10"
+                        android:inputType="textEmailAddress"
+                        android:paddingStart="20dp"
+                        android:paddingEnd="40dp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    style="@style/outlinedBox"
                     android:id="@+id/input_login_password"
+                    style="@style/outlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="4dp"
                     android:layout_marginTop="4dp"
                     android:layout_marginRight="4dp"
-                    app:endIconMode="password_toggle"
                     android:hint="@string/password"
-                    android:padding="10dp">
+                    android:padding="10dp"
+                    app:endIconMode="password_toggle">
 
-                    <com.google.android.material.textfield.TextInputEditText
+                    <com.org.capstone.nutrifish.ui.customview.PasswordEditText
                         android:id="@+id/edit_login_password"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:paddingEnd="40dp"
-                        android:paddingStart="20dp"
                         android:ems="10"
-                        android:inputType="textPassword" />
+                        android:inputType="textPassword"
+                        android:paddingStart="20dp"
+                        android:paddingEnd="40dp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -172,13 +173,13 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/button_frame"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:id="@+id/button_frame"
-        app:layout_constraintTop_toBottomOf="@id/card_frame"
-        app:layout_constraintStart_toStartOf="@id/card_frame"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/card_frame"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintStart_toStartOf="@id/card_frame"
+        app:layout_constraintTop_toBottomOf="@id/card_frame">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/login_button_login"
@@ -211,8 +212,8 @@
             app:layout_constraintVertical_bias="0.044" />
 
         <com.google.android.material.button.MaterialButton
-            style="@style/Widget.Material3.Button.TextButton"
             android:id="@+id/bt_login_toRegister"
+            style="@style/Widget.Material3.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/bt_login_register"

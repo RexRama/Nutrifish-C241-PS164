@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.org.capstone.nutrifish" />
+                  <option name="mobileSdkAppId" value="1:297202612550:android:67a7163579b49dd89f4d47" />
+                  <option name="projectId" value="nutrifish-425413" />
+                  <option name="projectNumber" value="297202612550" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />
