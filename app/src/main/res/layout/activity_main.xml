@@ -5,15 +5,15 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.main.scan.ScanActivity">
+    tools:context=".ui.main.MainActivity">
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline10"
+        android:id="@+id/guideline8"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintGuide_percent="0.10"
+        app:layout_constraintGuide_percent="0.08"
         app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -58,6 +58,17 @@
             app:layout_constraintStart_toEndOf="@id/logo_nutrifish"
             app:layout_constraintTop_toTopOf="@id/logo_nutrifish" />
 
+        <ImageButton
+            android:id="@+id/bt_logout"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:backgroundTint="@color/darkGreen"
+            android:src="@drawable/baseline_logout_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -69,96 +80,37 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/guideline10">
+        app:layout_constraintTop_toTopOf="@id/guideline8">
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cv_image_frame"
+        <fragment
+            android:id="@+id/nav_host_fragment_container"
+            android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
-            android:layout_height="520dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            app:cardCornerRadius="20dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <ImageView
-                android:id="@+id/iv_image_placeholder"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:contentDescription="@string/image_placeholder"
-                android:scaleType="centerCrop"
-                android:src="@drawable/baseline_add_photo_alternate_24"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:src="@drawable/placeholderfish" />
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.button.MaterialButtonToggleGroup
-            android:id="@+id/toggle_button_frame"
-            android:layout_width="wrap_content"
-            android:layout_height="58dp"
-            android:gravity="center"
-            android:layout_marginTop="10dp"
-            app:layout_constraintEnd_toEndOf="@id/cv_image_frame"
-            app:layout_constraintStart_toStartOf="@id/cv_image_frame"
-
-            app:layout_constraintTop_toBottomOf="@id/cv_image_frame">
-
-            <Button
-                style="@style/Widget.Material3.Button.ElevatedButton.Icon"
-                android:layout_width="165dp"
-                android:backgroundTint="@color/darkGreen"
-                android:textColor="@color/white"
-                android:id="@+id/bt_camera"
-                android:layout_gravity="center"
-                app:icon="@drawable/baseline_photo_camera_24"
-                app:iconSize="30dp"
-                app:iconTint="@color/white"
-                android:layout_height="match_parent"
-                android:textSize="16sp"
-                android:text="@string/bt_camera_text"/>
-
-            <Button
-                android:layout_gravity="center"
-                style="@style/Widget.Material3.Button.ElevatedButton.Icon"
-                android:id="@+id/bt_gallery"
-                android:textSize="16sp"
-                android:textColor="@color/white"
-                android:backgroundTint="@color/darkGreen"
-                android:layout_width="165dp"
-                app:icon="@drawable/baseline_image_search_24"
-                app:iconSize="30dp"
-                app:iconTint="@color/white"
-                android:layout_height="match_parent"
-                android:text="@string/bt_gallery_text"/>
-
-
-        </com.google.android.material.button.MaterialButtonToggleGroup>
-
-        <com.google.android.material.button.MaterialButton
-            style="@style/Widget.Material3.Button.ElevatedButton"
-            android:layout_width="330dp"
-            android:layout_height="58dp"
-            android:textSize="20sp"
-            android:backgroundTint="@color/sageGreen"
-            android:textColor="@color/darkGreen"
-            android:text="Analyze"
-            app:layout_constraintEnd_toEndOf="@+id/toggle_button_frame"
-            app:layout_constraintStart_toStartOf="@+id/toggle_button_frame"
-            app:layout_constraintTop_toBottomOf="@id/toggle_button_frame" />
+            android:layout_height="match_parent"
+            app:defaultNavHost="true"
+            app:navGraph="@navigation/nav_graph"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_postRecipe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/sageGreen"
+        android:contentDescription="@string/fab_postRecipe"
+        android:src="@drawable/baseline_create_24"
+        app:layout_constraintBottom_toTopOf="@id/bottom_navbar"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navbar"
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:background="@drawable/bottom_navbar_vector"
+        app:itemActiveIndicatorStyle="@android:color/transparent"
         app:itemIconSize="35dp"
         app:itemIconTint="@color/sageGreen"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -167,6 +119,7 @@
         app:menu="@menu/bottom_nav_menu" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/bt_scan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/sageGreen"

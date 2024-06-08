@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "297202612550",
+    "project_id": "nutrifish-425413",
+    "storage_bucket": "nutrifish-425413.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:297202612550:android:67a7163579b49dd89f4d47",
+        "android_client_info": {
+          "package_name": "com.org.capstone.nutrifish"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "297202612550-l2409ljvjj8hb15cte0v9bld652mnqed.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.org.capstone.nutrifish",
+            "certificate_hash": "236d9ffbccf3746635f42db7d68c6c2053577619"
+          }
+        },
+        {
+          "client_id": "297202612550-hi8p73ot6spt0felvv87rgokllf2r3e1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA5z7jp980t6s_ein7_FpRHb647aLHk4vA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "297202612550-hi8p73ot6spt0felvv87rgokllf2r3e1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

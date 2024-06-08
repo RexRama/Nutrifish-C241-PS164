@@ -2,9 +2,14 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.Nutrifish" parent="Theme.Material3.Light.NoActionBar">
         <!-- Customize your light theme here. -->
+        <item name="colorPrimary">@color/darkGreen</item>
+        <item name="colorPrimaryVariant">@color/darkGreen</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondary">@color/sageGreen</item>
         <!-- Status bar color -->
         <item name="android:statusBarColor">@color/darkGreen</item>
         <item name="android:navigationBarColor">@color/darkGreen</item>
+        <item name="android:textColor">@color/black</item>
     </style>
 
     <style name="Theme.Nutrifish" parent="Base.Theme.Nutrifish" />
@@ -14,4 +19,6 @@
         <item name="cursorColor">@color/darkGreen</item>
         <item name="hintTextColor">@color/darkGreen</item>
     </style>
+
+
 </resources>

@@ -37,4 +37,16 @@
     <string name="placeholder_name">John Doe</string>
     <string name="placeholder_user_name">\@JohnDoe</string>
     <string name="myPost_title">My Posts</string>
+    <string name="preview_image">preview image</string>
+    <string name="upload">Upload</string>
+    <string name="upload_recipe_title">Recipe Title</string>
+    <string name="upload_recipe_descriptions">Recipe Descriptions</string>
+    <string name="upload_recipe">Upload Recipe</string>
+    <string name="invalid_email">Invalid Email</string>
+    <string name="password_validate">Password must contain at least 8 characters</string>
+    <string name="empty_email_field">Email field cannot be empty</string>
+    <string name="empty_password_field">Password field cannot be empty</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="button_logout">button logout</string>
 </resources>
