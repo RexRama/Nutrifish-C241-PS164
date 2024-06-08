@@ -76,7 +76,7 @@ class ScanFragment : Fragment() {
                                 classifications[0].categories.sortedByDescending { it?.score }
                             val prediction = sortedCategories[0].label
                             val score = sortedCategories[0].score
-                            val result: String = when (prediction.toString()) {
+                            val fish: String = when (prediction.toString()) {
                                 "0" -> "Bawal Putih"
                                 "1" -> "Nila"
                                 "2" -> "Pari"
@@ -84,7 +84,7 @@ class ScanFragment : Fragment() {
                                 "4" -> "Tuna"
                                 else -> "Unknown"
                             }
-                            showToast("Prediction: $result\nScore: $score")
+                            showToast("Prediction: $fish\nScore: $score")
                         } else {
                             showToast("No classifications found.")
                         }

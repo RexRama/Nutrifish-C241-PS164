@@ -10,7 +10,6 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.org.capstone.nutrifish.R
 import com.org.capstone.nutrifish.databinding.ActivitySplashBinding
-import com.org.capstone.nutrifish.ui.auth.welcome.WelcomeActivity
 import com.org.capstone.nutrifish.ui.main.MainActivity
 
 @SuppressLint("CustomSplashScreen")
