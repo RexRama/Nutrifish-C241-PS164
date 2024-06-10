@@ -9,7 +9,12 @@
         android:id="@+id/navigation_home"
         android:name="com.org.capstone.nutrifish.ui.main.home.HomeFragment"
         android:label="Home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_detailFish"
+            app:destination="@id/navigation_detailFish">
+        </action>
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_profile"
@@ -21,7 +26,17 @@
         android:id="@+id/navigation_scan"
         android:name="com.org.capstone.nutrifish.ui.main.scan.ScanFragment"
         android:label="Scan"
-        tools:layout="@layout/fragment_scan"/>
+        tools:layout="@layout/fragment_scan">
+        <action
+            android:id="@+id/action_navigation_scan_to_navigation_detailFish"
+            app:destination="@id/navigation_detailFish" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_detailFish"
+        android:name="com.org.capstone.nutrifish.ui.main.detail.ikan.FishDetailFragment"
+        android:label="detailFish"
+        tools:layout="@layout/fragment_fish_detail"/>
 
 
 </navigation>

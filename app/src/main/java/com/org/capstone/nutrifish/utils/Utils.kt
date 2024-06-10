@@ -2,6 +2,7 @@ package com.org.capstone.nutrifish.utils
 
 import android.content.Context
 import android.content.Intent
+import com.org.capstone.nutrifish.data.local.entity.FishEntity
 import com.org.capstone.nutrifish.ui.auth.register.RegisterActivity
 import com.org.capstone.nutrifish.ui.auth.welcome.WelcomeActivity
 import com.org.capstone.nutrifish.ui.main.MainActivity
@@ -26,6 +27,11 @@ class Utils {
     fun toUpload(context: Context) {
         val toUpload = Intent(context, UploadRecipeActivity::class.java)
         context.startActivity(toUpload)
+    }
+
+
+    interface OnItemClickCallback {
+        fun onItemClicked(data: FishEntity)
     }
 
 
