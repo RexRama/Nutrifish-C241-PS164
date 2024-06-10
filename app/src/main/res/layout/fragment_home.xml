@@ -34,6 +34,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_carousel_title" />
 
+    <ProgressBar
+        android:id="@+id/pb_carousel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:visibility="gone"
+        android:progressBackgroundTint="@color/darkGreen"
+        app:layout_constraintTop_toBottomOf="@id/tv_explore_subtitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/carousel_rv"
+        tools:visibility="visible" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/carousel_rv"
         android:layout_width="match_parent"
@@ -48,6 +61,15 @@
         app:layout_constraintTop_toBottomOf="@id/tv_explore_subtitle"
         tools:listitem="@layout/carousel_item" />
 
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/guideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.23"/>
+
     <TextView
         android:id="@+id/tv_post"
         android:layout_width="match_parent"
@@ -60,7 +82,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/carousel_rv" />
+        app:layout_constraintTop_toBottomOf="@id/guideline" />
 
     <TextView
         android:id="@+id/tv_post_subtitle"

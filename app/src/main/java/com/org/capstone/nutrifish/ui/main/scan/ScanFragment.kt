@@ -18,6 +18,8 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import com.org.capstone.nutrifish.R
 import com.org.capstone.nutrifish.databinding.FragmentScanBinding
 import com.org.capstone.nutrifish.helper.ImageClassifierHelper
 import com.org.capstone.nutrifish.utils.ImageUtils
@@ -85,6 +87,12 @@ class ScanFragment : Fragment() {
                                 else -> "Unknown"
                             }
                             showToast("Prediction: $fish\nScore: $score")
+                            val bundle = Bundle().apply {
+                                putString(FISH_NAME, fish)
+                            }
+                            findNavController().navigate(R.id.action_navigation_scan_to_navigation_detailFish, bundle)
+
+
                         } else {
                             showToast("No classifications found.")
                         }
@@ -161,7 +169,9 @@ class ScanFragment : Fragment() {
     companion object {
         private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
         private const val REQUEST_CODE_PERMISSIONS = 10
+        val FISH_NAME = "fish_name"
     }
+
 
 
 }

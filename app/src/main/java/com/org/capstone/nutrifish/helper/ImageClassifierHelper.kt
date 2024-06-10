@@ -73,28 +73,6 @@ class ImageClassifierHelper(
         )
     }
 
-//    fun classifyStaticImage(imageUri: Uri) {
-//        if (imageClassifier == null) {
-//            setUpImageClassifier()
-//        }
-//
-//        val imageProcessor = ImageProcessor.Builder()
-//            .add(NormalizeOp(mean, std)) // Add normalization
-//            .add(ResizeOp(224,224, ResizeOp.ResizeMethod.NEAREST_NEIGHBOR))
-//            .add(CastOp(DataType.FLOAT32))
-//            .build()
-//
-//        val tensorImage = imageProcessor.process(TensorImage.fromBitmap(toBitmap(imageUri)))
-//        var inferenceTime = SystemClock.uptimeMillis()
-//        val results = imageClassifier?.classify(tensorImage)
-//        inferenceTime = SystemClock.uptimeMillis() - inferenceTime
-//        classifierListener?.onResults(
-//            results,
-//            inferenceTime
-//        )
-//    }
-
-
 
     @Suppress("DEPRECATION")
     private fun toBitmap(imageUri: Uri): Bitmap {
