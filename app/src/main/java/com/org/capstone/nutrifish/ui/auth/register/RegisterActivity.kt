@@ -5,10 +5,12 @@ import android.view.View
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import com.org.capstone.nutrifish.data.remote.model.UserModel
+import com.org.capstone.nutrifish.data.remote.model.RegisterModel
 import com.org.capstone.nutrifish.databinding.ActivityRegisterBinding
+import com.org.capstone.nutrifish.utils.SettingPreferences
 import com.org.capstone.nutrifish.utils.Utils
 import com.org.capstone.nutrifish.utils.ViewModelFactory
+import com.org.capstone.nutrifish.utils.dataStore
 
 class RegisterActivity : AppCompatActivity() {
     private lateinit var registerViewModel: RegisterViewModel
@@ -24,7 +26,8 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun setupViewModel() {
-        val viewModelFactory = ViewModelFactory(this) // Pass any dependencies required by the ViewModel
+        val dataStore = SettingPreferences.getInstance(dataStore)
+        val viewModelFactory = ViewModelFactory(this, dataStore) // Pass any dependencies required by the ViewModel
         registerViewModel = ViewModelProvider(this, viewModelFactory)[RegisterViewModel::class.java]
 
         registerViewModel.isLoading.observe(this) { isLoading ->
@@ -46,12 +49,13 @@ class RegisterActivity : AppCompatActivity() {
             val registerPassword = binding.editRegisterPassword
 
             if (validateInput(registerName, registerUsername, registerEmail, registerPassword)) {
-                val userModel = UserModel(
+                val registerModel = RegisterModel(
                     registerName.text.toString(),
                     registerUsername.text.toString(),
-                    registerEmail.text.toString()
+                    registerEmail.text.toString(),
+                    registerPassword.text.toString()
                 )
-                registerViewModel.userRegistration(userModel, registerPassword.text.toString())
+                registerViewModel.userRegistration(registerModel)
             }
         }
     }

@@ -2,7 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.google.gms.google.services)
-    id("androidx.navigation.safeargs.kotlin") version "2.5.0" apply true
+
     id("com.google.devtools.ksp") version "1.9.21-1.0.15"
     id("kotlin-parcelize")
 }
@@ -23,11 +23,26 @@ android {
 
     buildTypes {
         release {
+            val baseUrl = "https://test-express-js-zk5psstbbq-et.a.run.app"
+            buildConfigField("String", "BASE_URL", "\"$baseUrl\"")
+
+            val webClientId = "297202612550-hi8p73ot6spt0felvv87rgokllf2r3e1.apps.googleusercontent.com"
+            buildConfigField ("String", "WEB_CLIENT_ID", "\"${webClientId}\"")
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+        }
+
+        debug {
+            val baseUrl = "https://test-express-js-zk5psstbbq-et.a.run.app"
+            buildConfigField("String", "BASE_URL", "\"$baseUrl\"")
+
+            val webClientId = "297202612550-hi8p73ot6spt0felvv87rgokllf2r3e1.apps.googleusercontent.com"
+            buildConfigField ("String", "WEB_CLIENT_ID", "\"${webClientId}\"")
+
+
         }
     }
     compileOptions {
@@ -67,6 +82,11 @@ dependencies {
     implementation(platform(libs.firebase.bom))
     implementation(libs.play.services.auth)
     implementation(libs.firebase.firestore.ktx)
+
+    // Credential Manager
+    implementation(libs.play.services.auth)
+    implementation(libs.googleid)
+    implementation(libs.androidx.credentials)
 
     //Camera
     implementation(libs.androidx.camera.camera2)

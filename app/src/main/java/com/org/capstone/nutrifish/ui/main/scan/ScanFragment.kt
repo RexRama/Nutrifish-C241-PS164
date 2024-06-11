@@ -169,7 +169,7 @@ class ScanFragment : Fragment() {
     companion object {
         private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
         private const val REQUEST_CODE_PERMISSIONS = 10
-        val FISH_NAME = "fish_name"
+        const val FISH_NAME = "fish_name"
     }
 
 

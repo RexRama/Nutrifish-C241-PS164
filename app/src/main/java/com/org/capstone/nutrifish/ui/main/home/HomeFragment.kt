@@ -12,8 +12,10 @@ import com.org.capstone.nutrifish.R
 import com.org.capstone.nutrifish.adapter.CarouselAdapter
 import com.org.capstone.nutrifish.data.local.entity.FishEntity
 import com.org.capstone.nutrifish.databinding.FragmentHomeBinding
+import com.org.capstone.nutrifish.utils.SettingPreferences
 import com.org.capstone.nutrifish.utils.Utils
 import com.org.capstone.nutrifish.utils.ViewModelFactory
+import com.org.capstone.nutrifish.utils.dataStore
 
 
 class HomeFragment : Fragment() {
@@ -35,7 +37,8 @@ class HomeFragment : Fragment() {
     }
 
     private fun setViewModel() {
-        val viewModelFactory = ViewModelFactory(requireContext().applicationContext)
+        val dataStore = SettingPreferences.getInstance(requireContext().dataStore)
+        val viewModelFactory = ViewModelFactory(requireContext().applicationContext, dataStore)
         homeViewModel = ViewModelProvider(this, viewModelFactory)[HomeViewModel::class.java]
         homeViewModel.getAllFish { fishList ->
             setCarousel(fishList)
@@ -77,7 +80,7 @@ class HomeFragment : Fragment() {
     }
 
     companion object {
-        val FISH_NAME = "fish_name"
+        const val FISH_NAME = "fish_name"
     }
 
 

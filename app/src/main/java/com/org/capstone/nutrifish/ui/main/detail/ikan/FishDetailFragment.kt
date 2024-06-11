@@ -13,7 +13,9 @@ import com.org.capstone.nutrifish.data.local.entity.FishEntity
 import com.org.capstone.nutrifish.databinding.FragmentFishDetailBinding
 import com.org.capstone.nutrifish.ui.main.home.HomeFragment
 import com.org.capstone.nutrifish.ui.main.scan.ScanFragment
+import com.org.capstone.nutrifish.utils.SettingPreferences
 import com.org.capstone.nutrifish.utils.ViewModelFactory
+import com.org.capstone.nutrifish.utils.dataStore
 
 class FishDetailFragment : Fragment() {
     private var _binding: FragmentFishDetailBinding? = null
@@ -36,7 +38,8 @@ class FishDetailFragment : Fragment() {
     }
 
     private fun getDetail() {
-        val viewModelFactory = ViewModelFactory(this@FishDetailFragment.requireContext())
+        val dataStore = SettingPreferences.getInstance(requireContext().dataStore)
+        val viewModelFactory = ViewModelFactory(this@FishDetailFragment.requireContext(), dataStore)
         detailFishDetailViewModel =
             ViewModelProvider(this, viewModelFactory)[FishDetailViewModel::class.java]
 
