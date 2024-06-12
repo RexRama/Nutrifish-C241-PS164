@@ -4,7 +4,6 @@ import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.org.capstone.nutrifish.data.remote.api.ApiService
-import com.org.capstone.nutrifish.data.remote.model.UserModel
 import com.org.capstone.nutrifish.data.remote.response.ListStoryItem
 
 class StoriesPaging(private val apiService: ApiService) : PagingSource<Int, ListStoryItem>() {

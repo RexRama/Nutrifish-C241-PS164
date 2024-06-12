@@ -2,7 +2,6 @@ package com.org.capstone.nutrifish.data.di
 
 import android.content.Context
 import com.org.capstone.nutrifish.data.remote.api.ApiConfig
-import com.org.capstone.nutrifish.data.remote.model.UserModel
 import com.org.capstone.nutrifish.data.remote.repository.MyStoryRepo
 import com.org.capstone.nutrifish.data.remote.repository.StoryRepo
 import com.org.capstone.nutrifish.utils.SettingPreferences

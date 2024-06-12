@@ -7,7 +7,6 @@ import androidx.paging.PagingData
 import androidx.paging.liveData
 import com.org.capstone.nutrifish.data.remote.api.ApiService
 import com.org.capstone.nutrifish.data.remote.paging.MyStoriesPaging
-import com.org.capstone.nutrifish.data.remote.paging.StoriesPaging
 import com.org.capstone.nutrifish.data.remote.response.UserStoriesItem
 
 class MyStoryRepo(private val apiService: ApiService, private val userID: String) {
