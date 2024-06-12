@@ -58,6 +58,11 @@ class RegisterActivity : AppCompatActivity() {
                 registerViewModel.userRegistration(registerModel)
             }
         }
+
+        binding.btRegisterToLogin.setOnClickListener {
+            Utils().toWelcome(this)
+            finish()
+        }
     }
 
     private fun validateInput(

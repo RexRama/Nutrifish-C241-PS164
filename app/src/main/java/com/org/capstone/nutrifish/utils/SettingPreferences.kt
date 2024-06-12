@@ -25,12 +25,17 @@ class SettingPreferences private constructor(private val dataStore: DataStore<Pr
         dataStore.edit { preferences ->
             preferences[STATE_KEY] = false
             preferences[TOKEN_KEY] = ""
+            preferences[NAME_KEY] = ""
+            preferences[USERNAME_KEY] = ""
+            preferences[EMAIL_KEY] = ""
+            preferences[PASSWORD_KEY] = ""
         }
     }
 
     fun getUser(): Flow<UserModel> {
         return dataStore.data.map { preferences ->
             UserModel(
+                preferences[UID_KEY] ?: "",
                 preferences[NAME_KEY] ?: "",
                 preferences[USERNAME_KEY] ?: "",
                 preferences[EMAIL_KEY] ?: "",
@@ -43,6 +48,7 @@ class SettingPreferences private constructor(private val dataStore: DataStore<Pr
 
     suspend fun setUser(user: UserModel) {
         dataStore.edit { preferences ->
+            preferences[UID_KEY] = user.uid
             preferences[NAME_KEY] = user.name
             preferences[USERNAME_KEY] = user.username ?: ""
             preferences[EMAIL_KEY] = user.email
@@ -55,6 +61,7 @@ class SettingPreferences private constructor(private val dataStore: DataStore<Pr
         @Volatile
         private var INSTANCE: SettingPreferences? = null
 
+        private val UID_KEY = stringPreferencesKey("uid")
         private val NAME_KEY = stringPreferencesKey("name")
         private val USERNAME_KEY = stringPreferencesKey("username")
         private val EMAIL_KEY = stringPreferencesKey("email")

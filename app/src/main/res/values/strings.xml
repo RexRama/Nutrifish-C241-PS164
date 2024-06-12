@@ -57,4 +57,7 @@
     <string name="fish_images">Gambar Ikan</string>
     <string name="web_client">297202612550-hi8p73ot6spt0felvv87rgokllf2r3e1.apps.googleusercontent.com</string>
     <string name="logout_button_image">Logout Button</string>
+    <string name="retry">Retry</string>
+    <string name="error_request_timeout">Error: Request timeout</string>
+    <string name="mypost_empty">Tidak ada post yang bisa ditampilkan</string>
 </resources>

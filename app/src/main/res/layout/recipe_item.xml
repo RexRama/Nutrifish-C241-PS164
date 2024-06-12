@@ -23,7 +23,9 @@
                 android:id="@+id/iv_recipe_image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="centerCrop"
+                android:background="@color/darkGreen"
+                android:contentDescription="@string/preview_image"
+                android:scaleType="fitCenter"
                 tools:src="@drawable/placeholder_resep"/>
         </com.google.android.material.card.MaterialCardView>
 
@@ -56,6 +58,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
                 <TextView
+                    android:id="@+id/date_created"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAlignment="viewEnd"

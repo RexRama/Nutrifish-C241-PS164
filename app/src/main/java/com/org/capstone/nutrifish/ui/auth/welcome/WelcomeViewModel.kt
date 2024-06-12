@@ -58,15 +58,24 @@ class WelcomeViewModel(
                     val responseBody = response.body()
                     if (responseBody != null && !responseBody.error) {
                         isLogin(responseBody.loginResult.token)
+                        saveUserToPreferences(
+                            responseBody.loginResult.userID,
+                            responseBody.loginResult.name,
+                            responseBody.loginResult.username,
+                            responseBody.loginResult.token
+                        )
                         dialogUtils.dialogSuccess(
-                            "Login Successful",
-                            "Login successful, proceed to home!"
+                            "Login Sukses",
+                            "Login sukses, lanjut ke halaman utama!"
                         ) {
                             _moveActivity.value = Unit
                         }
                     } else {
-                        dialogUtils.dialogError("Login Failed", response.code().toString())
+                        dialogUtils.dialogError("Login Gagal", response.code().toString())
                     }
+
+                } else if (response.code() == 400) {
+                    dialogUtils.dialogError("Login Gagal", "Email atau Password anda salah")
                 }
             }
 
@@ -111,11 +120,22 @@ class WelcomeViewModel(
         auth.signInWithCredential(credentials)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
+
                     Log.d(TAG, "signInWithCredential:success")
                     val user = auth.currentUser
                     user?.let {
-                        saveUserToPreferences(it.uid, it.displayName, it.email)
+                        saveUserToPreferences(
+                            it.uid,
+                            it.displayName,
+                            it.email,
+                            idToken
+                        )
                         saveUserToDatabase(it.uid, it.displayName, it.email)
+                    }
+                    dialogUtils.dialogSuccess(
+                        "Login Sukses",
+                        "Login sukses, lanjut ke halaman utama!"
+                    ) {
                         _moveActivity.value = Unit
                     }
                 } else {
@@ -140,16 +160,22 @@ class WelcomeViewModel(
             }
     }
 
-    private fun saveUserToPreferences(userID: String?, displayName: String?, email: String?) {
+    private fun saveUserToPreferences(
+        uid: String,
+        displayName: String?,
+        email: String?,
+        token: String
+    ) {
         viewModelScope.launch {
             pref.setUser(
                 UserModel(
-                    userID ?: "",
+                    uid,
                     displayName ?: "",
+                    email ?: "",
                     email ?: "",
                     "",
                     true,
-                    ""
+                    token
                 )
             )
         }

@@ -24,5 +24,8 @@ data class LoginResult(
 	val username: String,
 
 	@field:SerializedName("token")
-	val token: String
+	val token: String,
+
+	@field:SerializedName("userID")
+	val userID: String
 )
