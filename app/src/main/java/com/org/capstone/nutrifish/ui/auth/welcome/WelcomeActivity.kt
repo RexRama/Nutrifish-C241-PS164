@@ -1,27 +1,62 @@
 package com.org.capstone.nutrifish.ui.auth.welcome
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.ViewModelProvider
 import com.org.capstone.nutrifish.R
+import com.org.capstone.nutrifish.data.remote.model.LoginModel
+import com.org.capstone.nutrifish.data.remote.model.UserModel
 import com.org.capstone.nutrifish.databinding.ActivityWelcomeBinding
-import com.org.capstone.nutrifish.utils.DialogUtils
+import com.org.capstone.nutrifish.ui.main.MainActivity
+import com.org.capstone.nutrifish.utils.SettingPreferences
 import com.org.capstone.nutrifish.utils.Utils
+import com.org.capstone.nutrifish.utils.ViewModelFactory
+import com.org.capstone.nutrifish.utils.dataStore
 
 class WelcomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityWelcomeBinding
+    private lateinit var welcomeViewModel: WelcomeViewModel
+    private lateinit var userModel: UserModel
+
+    private val resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {result ->
+        welcomeViewModel.handleSignInResult(result)
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityWelcomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
+
+        val dataStore = SettingPreferences.getInstance(dataStore)
+        setViewModel(dataStore)
 
         setButton()
+    }
+
+    private fun setViewModel(dataStore: SettingPreferences) {
+        val viewModelFactory = ViewModelFactory(this, dataStore)
+        welcomeViewModel = ViewModelProvider(this, viewModelFactory)[WelcomeViewModel::class.java]
+        welcomeViewModel.initGoogleLogin(this)
+
+        welcomeViewModel.getUser().observe(this) { user ->
+            this.userModel = user
+        }
+
+        welcomeViewModel.isLoading.observe(this) {
+            showLoading(it)
+        }
+
+        welcomeViewModel.moveActivity.observe(this) {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+    }
+
+    private fun showLoading(it: Boolean) {
+        binding.pbWelcome.visibility = if (it) View.VISIBLE else View.GONE
     }
 
     private fun setButton() {
@@ -51,13 +86,13 @@ class WelcomeActivity : AppCompatActivity() {
             }
 
             if (loginEmail.error == null && loginPassword.error == null) {
-                if (loginEmail.text.toString() == "admin@admin.com" && loginPassword.text.toString() == "admin123") {
-                   DialogUtils(this).dialogSuccess("Login Successful", "Welcome Admin") {
-                       Utils().toHome(this)
-                       finish()
-                   }
-                }
+                val user = LoginModel(loginEmail.text.toString(), loginPassword.text.toString())
+                welcomeViewModel.loginUser(user)
             }
+        }
+
+        binding.loginButtonGoogle.setOnClickListener{
+            welcomeViewModel.loginWithGoogle(resultLauncher)
         }
     }
 

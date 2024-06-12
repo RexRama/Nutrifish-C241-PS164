@@ -29,4 +29,19 @@ class DialogUtils(private val context: Context) {
             show()
         }
     }
+
+    fun dialogLogout(title: String, message: String, positiveButtonAction: () -> Unit) {
+        AlertDialog.Builder(context).apply {
+            setTitle(title)
+            setMessage(message)
+            setPositiveButton("Yes") {_,_ ->
+                positiveButtonAction.invoke()
+            }
+            setNegativeButton("No") {_,_ ->
+                //do nothing
+            }
+            create()
+            show()
+        }
+    }
 }

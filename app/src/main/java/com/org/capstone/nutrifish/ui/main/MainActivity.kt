@@ -1,26 +1,31 @@
 package com.org.capstone.nutrifish.ui.main
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.View
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.org.capstone.nutrifish.R
 import com.org.capstone.nutrifish.databinding.ActivityMainBinding
+import com.org.capstone.nutrifish.ui.auth.welcome.WelcomeActivity
+import com.org.capstone.nutrifish.utils.DialogUtils
+import com.org.capstone.nutrifish.utils.SettingPreferences
 import com.org.capstone.nutrifish.utils.Utils
+import com.org.capstone.nutrifish.utils.ViewModelFactory
+import com.org.capstone.nutrifish.utils.dataStore
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
+    private lateinit var mainViewModel: MainViewModel
 
     private var doubleBackToExit = false
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,8 +40,37 @@ class MainActivity : AppCompatActivity() {
 
         bottomNavigation.setupWithNavController(navController)
 
+        setViewModel()
         setupNavigation(bottomNavigation)
+        setButton()
         setBackbutton()
+
+    }
+
+    private fun setButton() {
+        val logoutButton = binding.btLogout
+        logoutButton.setOnClickListener{
+            DialogUtils(this).dialogLogout("Logout","Anda yakin ingin Logout?"){
+                mainViewModel.logout(this)
+            }
+        }
+    }
+
+    private fun setViewModel() {
+        val dataStore = SettingPreferences.getInstance(dataStore)
+        val viewModelFactory = ViewModelFactory(this, dataStore)
+        mainViewModel = ViewModelProvider(this, viewModelFactory)[MainViewModel::class.java]
+
+        mainViewModel.getUser()?.observe(this) {user->
+            val token = "Bearer ${user.token}"
+            mainViewModel.setToken(token)
+        }
+
+        mainViewModel.moveActivity.observe(this) {
+            val intent = Intent(this, WelcomeActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 
     private fun setBackbutton() {

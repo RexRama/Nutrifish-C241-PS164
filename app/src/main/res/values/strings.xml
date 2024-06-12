@@ -55,4 +55,6 @@
     <string name="benefit_title">Manfaat :</string>
     <string name="description_title">Deskripsi :</string>
     <string name="fish_images">Gambar Ikan</string>
+    <string name="web_client">297202612550-hi8p73ot6spt0felvv87rgokllf2r3e1.apps.googleusercontent.com</string>
+    <string name="logout_button_image">Logout Button</string>
 </resources>
