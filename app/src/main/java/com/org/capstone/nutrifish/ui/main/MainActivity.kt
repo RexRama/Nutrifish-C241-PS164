@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
@@ -14,6 +15,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.org.capstone.nutrifish.R
+import com.org.capstone.nutrifish.data.remote.model.UserModel
 import com.org.capstone.nutrifish.databinding.ActivityMainBinding
 import com.org.capstone.nutrifish.ui.auth.welcome.WelcomeActivity
 import com.org.capstone.nutrifish.utils.DialogUtils
@@ -26,6 +28,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
     private lateinit var mainViewModel: MainViewModel
+    private lateinit var userModel: UserModel
+
 
     private var doubleBackToExit = false
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,6 +49,7 @@ class MainActivity : AppCompatActivity() {
         setButton()
         setBackbutton()
 
+
     }
 
     private fun setButton() {
@@ -52,6 +57,10 @@ class MainActivity : AppCompatActivity() {
         logoutButton.setOnClickListener{
             DialogUtils(this).dialogLogout("Logout","Anda yakin ingin Logout?"){
                 mainViewModel.logout(this)
+                Log.d("MainActivity", "User ID: ${userModel.username}")
+                Log.d("MainActivity", "User Name: ${userModel.name}")
+                Log.d("MainActivity", "User Email: ${userModel.email}")
+                Log.d("MainActivity", "User Token: ${userModel.token}")
             }
         }
     }
@@ -64,6 +73,11 @@ class MainActivity : AppCompatActivity() {
         mainViewModel.getUser()?.observe(this) {user->
             val token = "Bearer ${user.token}"
             mainViewModel.setToken(token)
+            userModel = user
+            Log.d("MainActivity", "User ID: ${userModel.username}")
+            Log.d("MainActivity", "User Name: ${userModel.name}")
+            Log.d("MainActivity", "User Email: ${userModel.email}")
+            Log.d("MainActivity", "User Token: ${userModel.token}")
         }
 
         mainViewModel.moveActivity.observe(this) {
@@ -111,7 +125,10 @@ class MainActivity : AppCompatActivity() {
 
                 R.id.to_profile -> {
                     // Navigate to the profile destination
-                    navController.navigate(R.id.navigation_profile)
+                    val bundle = Bundle().apply {
+                        putParcelable("user", this@MainActivity.userModel)
+                    }
+                    navController.navigate(R.id.navigation_profile, bundle)
                     buttonPost.visibility = View.VISIBLE
                     true
                 }

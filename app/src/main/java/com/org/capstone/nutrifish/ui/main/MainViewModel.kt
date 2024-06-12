@@ -54,6 +54,7 @@ class MainViewModel(private val pref: SettingPreferences?, context: Context) : V
                 pref?.logout()
                 _moveActivity.value = Unit
                 Log.d(TAG, "Logout Success")
+
             }
         }
     }
