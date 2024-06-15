@@ -60,4 +60,14 @@
     <string name="retry">Retry</string>
     <string name="error_request_timeout">Error: Request timeout</string>
     <string name="mypost_empty">Tidak ada post yang bisa ditampilkan</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="recipe_image">Gambar Resep</string>
+    <string name="ingredients_and_steps">Bahan dan Cara Mengolah :</string>
+    <string name="username_post">\@username</string>
+    <string name="date_posted">Date Posted</string>
+    <string name="isi_deskripsi">Isi......\n</string>
+    <string name="Page_Title">Page Title\n</string>
+    <string name="analyze">Analyze</string>
+    <string name="back_button">back button</string>
 </resources>

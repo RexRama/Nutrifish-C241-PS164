@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintGuide_percent="0.08"
+        app:layout_constraintGuide_percent="0.08019441"
         app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -46,7 +46,22 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <ImageButton
+            android:contentDescription="@string/back_button"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/bt_back"
+            android:layout_marginStart="8dp"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/baseline_arrow_back_ios_24"
+            android:background="@color/darkGreen"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
         <TextView
+            android:id="@+id/top_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -54,9 +69,24 @@
             android:textColor="@color/sageGreen"
             android:textSize="20sp"
             android:textStyle="bold"
+            android:layout_marginStart="2dp"
             app:layout_constraintBottom_toBottomOf="@id/logo_nutrifish"
             app:layout_constraintStart_toEndOf="@id/logo_nutrifish"
             app:layout_constraintTop_toTopOf="@id/logo_nutrifish" />
+
+        <TextView
+            android:id="@+id/page_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/Page_Title"
+            android:textColor="@color/sageGreen"
+            android:visibility="gone"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/top_title" />
 
         <ImageButton
             android:id="@+id/bt_logout"
@@ -109,7 +139,7 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navbar"
         android:layout_width="match_parent"
-        android:layout_height="55dp"
+        android:layout_height="50dp"
         android:background="@drawable/bottom_navbar_vector"
         app:itemActiveIndicatorStyle="@android:color/transparent"
         app:itemIconSize="35dp"
