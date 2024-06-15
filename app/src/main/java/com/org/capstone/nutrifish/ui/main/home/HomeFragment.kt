@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -15,6 +16,8 @@ import com.org.capstone.nutrifish.adapter.AllStoriesAdapter
 import com.org.capstone.nutrifish.adapter.CarouselAdapter
 import com.org.capstone.nutrifish.adapter.LoadingAdapter
 import com.org.capstone.nutrifish.data.local.entity.FishEntity
+import com.org.capstone.nutrifish.data.remote.response.ListStoryItem
+import com.org.capstone.nutrifish.data.remote.response.UserStoriesItem
 import com.org.capstone.nutrifish.databinding.FragmentHomeBinding
 import com.org.capstone.nutrifish.utils.SettingPreferences
 import com.org.capstone.nutrifish.utils.Utils
@@ -23,7 +26,8 @@ import com.org.capstone.nutrifish.utils.dataStore
 
 
 class HomeFragment : Fragment() {
-    private lateinit var binding: FragmentHomeBinding
+    private var _binding: FragmentHomeBinding? = null
+    private val binding get() = _binding!!
     private lateinit var carouselAdapter: CarouselAdapter
     private lateinit var homeViewModel: HomeViewModel
     private lateinit var storyAdapter: AllStoriesAdapter
@@ -32,11 +36,12 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentHomeBinding.inflate(inflater, container, false)
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        val view = binding.root
         setStory()
 
         setViewModel()
-        return binding.root
+        return view
     }
 
     private fun setViewModel() {
@@ -72,6 +77,27 @@ class HomeFragment : Fragment() {
             showStoriesLoading(loadState)
         }
 
+        storyAdapter.setOnItemClickCallback(object : Utils.OnItemClickCallback{
+            override fun onFishClicked(data: FishEntity) {
+                // Do nothing
+            }
+
+            override fun onPostClicked(data: ListStoryItem) {
+                val showBack = requireActivity().findViewById<ImageButton>(R.id.bt_back)
+                showBack.visibility = View.VISIBLE
+                val bundle = Bundle().apply {
+                    putParcelable(RECIPE_ITEM, data)
+                }
+                findNavController().navigate(
+                    R.id.action_navigation_home_to_navigation_detailPost, bundle
+                )
+            }
+
+            override fun onMyPostClicked(data: UserStoriesItem) {
+                // DO nothing
+            }
+        })
+
 
     }
 
@@ -85,7 +111,10 @@ class HomeFragment : Fragment() {
                 )
                 carouselAdapter = CarouselAdapter(fishList).apply {
                     setOnItemClickCallback(object : Utils.OnItemClickCallback {
-                        override fun onItemClicked(data: FishEntity) {
+
+                        override fun onFishClicked(data: FishEntity) {
+                            val showBack = requireActivity().findViewById<ImageButton>(R.id.bt_back)
+                            showBack.visibility = View.VISIBLE
                             val bundle = Bundle().apply {
                                 putString(FISH_NAME, data.fishName)
                             }
@@ -93,6 +122,14 @@ class HomeFragment : Fragment() {
                                 R.id.action_navigation_home_to_navigation_detailFish,
                                 bundle
                             )
+                        }
+
+                        override fun onPostClicked(data: ListStoryItem) {
+                           // do nothing
+                        }
+
+                        override fun onMyPostClicked(data: UserStoriesItem) {
+                           //Do nothing
                         }
                     })
                 }
@@ -112,6 +149,7 @@ class HomeFragment : Fragment() {
 
     companion object {
         const val FISH_NAME = "fish_name"
+        const val RECIPE_ITEM = "recipe_item"
     }
 
 

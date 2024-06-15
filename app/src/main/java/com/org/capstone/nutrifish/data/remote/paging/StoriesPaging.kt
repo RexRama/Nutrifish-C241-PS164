@@ -22,7 +22,7 @@ class StoriesPaging(private val apiService: ApiService) : PagingSource<Int, List
             LoadResult.Page(
                 data = responseData.listStory,
                 prevKey = if (position == INITIAL_PAGE_INDEX) null else position - 1,
-                nextKey = if (responseData.listStory?.isEmpty() == true) null else position + 1
+                nextKey = if (responseData.listStory.isEmpty()) null else position + 1
             )
         } catch (exception: Exception) {
             Log.e(TAG, "Error loading data", exception)

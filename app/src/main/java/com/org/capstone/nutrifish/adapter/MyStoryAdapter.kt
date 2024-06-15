@@ -10,14 +10,17 @@ import com.bumptech.glide.Glide
 import com.org.capstone.nutrifish.R
 import com.org.capstone.nutrifish.data.remote.response.UserStoriesItem
 import com.org.capstone.nutrifish.databinding.RecipeItemBinding
+import com.org.capstone.nutrifish.utils.Utils
 
 class MyStoryAdapter :
     PagingDataAdapter<UserStoriesItem, MyStoryAdapter.ListViewHolder>(DIFF_CALLBACK) {
+    private var onItemClickCallback: Utils.OnItemClickCallback? = null
     class ListViewHolder(var binding: RecipeItemBinding) : RecyclerView.ViewHolder(binding.root)
 
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         val myStoryItem = getItem(position)
+        val storyDate = myStoryItem?.storyDateCreated
         if (myStoryItem != null) {
             val context = holder.itemView.context
             if (myStoryItem.storyPhotoUrl.isNullOrEmpty()) {
@@ -32,8 +35,14 @@ class MyStoryAdapter :
             holder.apply {
                 with(binding) {
                     tvRecipeTitle.text = myStoryItem.storyTitle
-                    dateCreated.text = myStoryItem.storyDateCreated
+                    if (storyDate != null) {
+                        dateCreated.text =
+                            if (storyDate.contains(",")) storyDate.substringBefore(",") else storyDate
+                    }
                     tvRecipeUsername.visibility = View.GONE
+                    itemView.setOnClickListener{
+                        onItemClickCallback?.onMyPostClicked(myStoryItem)
+                    }
                 }
             }
         }
@@ -42,6 +51,10 @@ class MyStoryAdapter :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
         val binding = RecipeItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ListViewHolder(binding)
+    }
+
+    fun setOnItemClickCallback(onItemClickCallBack: Utils.OnItemClickCallback) {
+        this.onItemClickCallback = onItemClickCallBack
     }
 
 

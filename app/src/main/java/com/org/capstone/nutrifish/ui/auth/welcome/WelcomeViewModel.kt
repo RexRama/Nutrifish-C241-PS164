@@ -3,6 +3,7 @@ package com.org.capstone.nutrifish.ui.auth.welcome
 
 import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import android.util.Log
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
@@ -23,9 +24,12 @@ import com.org.capstone.nutrifish.data.remote.api.ApiConfig
 import com.org.capstone.nutrifish.data.remote.model.LoginModel
 import com.org.capstone.nutrifish.data.remote.model.UserModel
 import com.org.capstone.nutrifish.data.remote.response.LoginResponse
+import com.org.capstone.nutrifish.data.remote.response.VerifyGoogleTokenResponse
 import com.org.capstone.nutrifish.utils.DialogUtils
 import com.org.capstone.nutrifish.utils.SettingPreferences
 import kotlinx.coroutines.launch
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -62,7 +66,9 @@ class WelcomeViewModel(
                             responseBody.loginResult.userID,
                             responseBody.loginResult.name,
                             responseBody.loginResult.username,
-                            responseBody.loginResult.token
+                            responseBody.loginResult.token,
+                            false,
+                            null
                         )
                         dialogUtils.dialogSuccess(
                             "Login Sukses",
@@ -123,14 +129,17 @@ class WelcomeViewModel(
 
                     Log.d(TAG, "signInWithCredential:success")
                     val user = auth.currentUser
+                    Log.d(TAG, idToken)
                     user?.let {
                         saveUserToPreferences(
                             it.uid,
                             it.displayName,
                             it.email,
-                            idToken
+                            idToken,
+                            true,
+                            it.photoUrl
                         )
-                        saveUserToDatabase(it.uid, it.displayName, it.email)
+//                        saveUserToDatabase(it.uid, it.displayName, it.email)
                     }
                     dialogUtils.dialogSuccess(
                         "Login Sukses",
@@ -138,11 +147,49 @@ class WelcomeViewModel(
                     ) {
                         _moveActivity.value = Unit
                     }
+                    verifyGoogleTokenWithServer(idToken)
                 } else {
                     Log.w(TAG, "signInWithCredential:failure", task.exception)
                 }
                 _isLoading.value = false
             }
+    }
+
+
+
+    private fun verifyGoogleTokenWithServer(idToken: String) {
+        _isLoading.value = true
+        val requestBody = RequestBody.create("application/json".toMediaTypeOrNull(), """{"idToken":"$idToken"}""")
+        val client = apiService.verifyGoogleToken(requestBody)
+        client.enqueue(object : Callback<VerifyGoogleTokenResponse> {
+            override fun onResponse(call: Call<VerifyGoogleTokenResponse>, response: Response<VerifyGoogleTokenResponse>) {
+                _isLoading.value = false
+                if (response.isSuccessful) {
+                    val responseBody = response.body()
+                    if (responseBody != null && !responseBody.error) {
+                        Log.d(TAG, "JWT Token: ${responseBody.token}")
+                        // You can save the JWT token or do other actions here
+                    } else {
+                        dialogUtils.dialogError("Verification Gagal", response.code().toString())
+                        Log.d(TAG, "JWT Token: ${response.message()}")
+                        Log.d(TAG, "JWT Token: ${response.code()}")
+                        Log.d(TAG, responseBody?.error.toString())
+                        responseBody?.let { Log.d(TAG, it.message) }
+                    }
+                } else {
+                    dialogUtils.dialogError("Verification Gagal", response.code().toString())
+                    Log.d(TAG, "JWT Token: ${response.message()}")
+                    Log.d(TAG, "JWT Token: ${response.code()}")
+                    Log.d(TAG, "JWT Token: ${response.message()}")
+                }
+            }
+
+            override fun onFailure(call: Call<VerifyGoogleTokenResponse>, t: Throwable) {
+                _isLoading.value = false
+                dialogUtils.dialogError("Verification Failed", t.message)
+
+            }
+        })
     }
 
     private fun saveUserToDatabase(uid: String, displayName: String?, email: String?) {
@@ -164,7 +211,9 @@ class WelcomeViewModel(
         uid: String,
         displayName: String?,
         email: String?,
-        token: String
+        token: String,
+        isGoogle : Boolean,
+        photo: Uri?
     ) {
         viewModelScope.launch {
             pref.setUser(
@@ -175,7 +224,9 @@ class WelcomeViewModel(
                     email ?: "",
                     "",
                     true,
-                    token
+                    token,
+                    isGoogle,
+                    photo.toString()
                 )
             )
         }

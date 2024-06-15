@@ -11,28 +11,36 @@ import com.org.capstone.nutrifish.ui.main.detail.ikan.FishDetailViewModel
 import com.org.capstone.nutrifish.ui.main.home.HomeViewModel
 import com.org.capstone.nutrifish.ui.main.profile.ProfileViewModel
 import com.org.capstone.nutrifish.ui.main.splash.SplashViewModel
+import com.org.capstone.nutrifish.ui.main.upload.UploadViewModel
 
 @Suppress("UNCHECKED_CAST")
 class ViewModelFactory(
     private val context: Context,
     private val pref: SettingPreferences
-): ViewModelProvider.NewInstanceFactory() {
+) : ViewModelProvider.NewInstanceFactory() {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(RegisterViewModel::class.java)){
+        if (modelClass.isAssignableFrom(RegisterViewModel::class.java)) {
             return RegisterViewModel(DialogUtils(context)) as T
-        } else if (modelClass.isAssignableFrom(FishDetailViewModel::class.java)){
+        } else if (modelClass.isAssignableFrom(FishDetailViewModel::class.java)) {
             return FishDetailViewModel(context) as T
-        } else if (modelClass.isAssignableFrom(HomeViewModel::class.java)){
+        } else if (modelClass.isAssignableFrom(HomeViewModel::class.java)) {
             return HomeViewModel(context, Injection.provideStoryRepo()) as T
         } else if (modelClass.isAssignableFrom(WelcomeViewModel::class.java)) {
             return WelcomeViewModel(pref, DialogUtils(context)) as T
         } else if (modelClass.isAssignableFrom(MainViewModel::class.java)) {
-            return MainViewModel(pref, context) as T
+            return MainViewModel(
+                pref,
+                context,
+                Injection.provideStoryRepo(),
+                Injection.provideMyStoryRepo(context)
+            ) as T
         } else if (modelClass.isAssignableFrom(SplashViewModel::class.java)) {
             return SplashViewModel(pref) as T
-        } else if (modelClass.isAssignableFrom(ProfileViewModel::class.java)){
+        } else if (modelClass.isAssignableFrom(ProfileViewModel::class.java)) {
             return ProfileViewModel(Injection.provideMyStoryRepo(context)) as T
+        } else if (modelClass.isAssignableFrom(UploadViewModel::class.java)) {
+            return UploadViewModel(pref, DialogUtils(context)) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
     }
