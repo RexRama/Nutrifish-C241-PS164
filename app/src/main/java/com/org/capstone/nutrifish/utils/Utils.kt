@@ -3,6 +3,8 @@ package com.org.capstone.nutrifish.utils
 import android.content.Context
 import android.content.Intent
 import com.org.capstone.nutrifish.data.local.entity.FishEntity
+import com.org.capstone.nutrifish.data.remote.response.ListStoryItem
+import com.org.capstone.nutrifish.data.remote.response.UserStoriesItem
 import com.org.capstone.nutrifish.ui.auth.register.RegisterActivity
 import com.org.capstone.nutrifish.ui.auth.welcome.WelcomeActivity
 import com.org.capstone.nutrifish.ui.main.MainActivity
@@ -31,7 +33,10 @@ class Utils {
 
 
     interface OnItemClickCallback {
-        fun onItemClicked(data: FishEntity)
+        fun onFishClicked(data: FishEntity)
+        fun onPostClicked(data: ListStoryItem)
+
+        fun onMyPostClicked(data: UserStoriesItem)
     }
 
 

@@ -11,6 +11,7 @@ import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
@@ -27,7 +28,8 @@ import org.tensorflow.lite.task.vision.classifier.Classifications
 import java.io.File
 
 class ScanFragment : Fragment() {
-    private lateinit var binding: FragmentScanBinding
+    private var _binding: FragmentScanBinding? = null
+    private val binding get() = _binding!!
     private lateinit var imageClassifierHelper: ImageClassifierHelper
 
     private lateinit var currentImagePath: String
@@ -36,11 +38,12 @@ class ScanFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentScanBinding.inflate(layoutInflater, container, false)
+        _binding = FragmentScanBinding.inflate(layoutInflater, container, false)
+        val view = binding.root
 
         setProcess()
 
-        return binding.root
+        return view
     }
 
     private fun setProcess() {
@@ -90,6 +93,8 @@ class ScanFragment : Fragment() {
                             val bundle = Bundle().apply {
                                 putString(FISH_NAME, fish)
                             }
+                            val showBack = requireActivity().findViewById<ImageButton>(R.id.bt_back)
+                            showBack.visibility = View.VISIBLE
                             findNavController().navigate(R.id.action_navigation_scan_to_navigation_detailFish, bundle)
 
 
@@ -170,6 +175,11 @@ class ScanFragment : Fragment() {
         private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
         private const val REQUEST_CODE_PERMISSIONS = 10
         const val FISH_NAME = "fish_name"
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 
