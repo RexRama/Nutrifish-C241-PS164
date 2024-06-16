@@ -1,6 +1,8 @@
 package com.org.capstone.nutrifish.data.remote.response
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
 data class MyPostResponse(
 
@@ -14,6 +16,7 @@ data class MyPostResponse(
 	val message: String? = null
 )
 
+@Parcelize
 data class UserStoriesItem(
 
 	@field:SerializedName("storyID")
@@ -29,5 +32,8 @@ data class UserStoriesItem(
 	val storyTitle: String? = null,
 
 	@field:SerializedName("storyDescription")
-	val storyDescription: String? = null
-)
+	val storyDescription: String? = null,
+
+	@field:SerializedName("username")
+	val storyUsername: String? = null
+) : Parcelable

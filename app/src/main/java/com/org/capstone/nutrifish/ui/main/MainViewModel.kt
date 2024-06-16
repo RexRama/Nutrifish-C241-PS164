@@ -14,11 +14,13 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.org.capstone.nutrifish.BuildConfig
 import com.org.capstone.nutrifish.data.remote.model.UserModel
+import com.org.capstone.nutrifish.data.remote.repository.MyStoryRepo
+import com.org.capstone.nutrifish.data.remote.repository.StoryRepo
 import com.org.capstone.nutrifish.utils.SettingPreferences
 import kotlinx.coroutines.launch
 
 @Suppress("DEPRECATION")
-class MainViewModel(private val pref: SettingPreferences?, context: Context) : ViewModel() {
+class MainViewModel(private val pref: SettingPreferences?, context: Context, private val storyRepo: StoryRepo, private val myStoryRepo: MyStoryRepo) : ViewModel() {
 
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
     private lateinit var googleSignInClient: GoogleSignInClient
@@ -40,7 +42,8 @@ class MainViewModel(private val pref: SettingPreferences?, context: Context) : V
     }
 
     fun setToken(token: String) {
-
+        storyRepo.setToken(token)
+        myStoryRepo.setToken(token)
     }
 
     fun getUser(): LiveData<UserModel>? {

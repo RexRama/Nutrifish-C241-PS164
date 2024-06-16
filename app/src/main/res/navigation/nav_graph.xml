@@ -14,18 +14,15 @@
             android:id="@+id/action_navigation_home_to_navigation_detailFish"
             app:destination="@id/navigation_detailFish">
         </action>
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_detailPost"
+            app:destination="@id/navigation_detailPost" />
     </fragment>
-
-    <fragment
-        android:id="@+id/navigation_profile"
-        android:name="com.org.capstone.nutrifish.ui.main.profile.ProfileFragment"
-        android:label="Profile"
-        tools:layout="@layout/fragment_profile"/>
 
     <fragment
         android:id="@+id/navigation_scan"
         android:name="com.org.capstone.nutrifish.ui.main.scan.ScanFragment"
-        android:label="Scan"
+        android:label="scan"
         tools:layout="@layout/fragment_scan">
         <action
             android:id="@+id/action_navigation_scan_to_navigation_detailFish"
@@ -33,10 +30,40 @@
     </fragment>
 
     <fragment
+        android:id="@+id/navigation_profile"
+        android:name="com.org.capstone.nutrifish.ui.main.profile.ProfileFragment"
+        android:label="Profile"
+        tools:layout="@layout/fragment_profile">
+        <action
+            android:id="@+id/action_navigation_profile_to_navigation_myPost"
+            app:destination="@id/navigation_myPost" />
+    </fragment>
+
+    <fragment
         android:id="@+id/navigation_detailFish"
         android:name="com.org.capstone.nutrifish.ui.main.detail.ikan.FishDetailFragment"
         android:label="detailFish"
         tools:layout="@layout/fragment_fish_detail"/>
+
+    <fragment
+        android:id="@+id/navigation_detailPost"
+        android:name="com.org.capstone.nutrifish.ui.main.detail.post.DetailPostFragment"
+        android:label="detailPost"
+        tools:layout="@layout/fragment_detail_post">
+        <action
+            android:id="@+id/action_navigation_detaiPost_to_navigation_home2"
+            app:destination="@id/navigation_home" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_myPost"
+        android:name="com.org.capstone.nutrifish.ui.main.detail.post.MyPostFragment"
+        android:label="myPost"
+        tools:layout="@layout/fragment_my_post">
+        <action
+            android:id="@+id/action_navigation_myPost_to_navigation_profile"
+            app:destination="@id/navigation_profile" />
+    </fragment>
 
 
 </navigation>

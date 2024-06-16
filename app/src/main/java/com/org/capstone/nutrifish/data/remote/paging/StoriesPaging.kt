@@ -19,10 +19,22 @@ class StoriesPaging(private val apiService: ApiService) : PagingSource<Int, List
             val position = params.key ?: INITIAL_PAGE_INDEX
             val responseData = apiService.getAllStories(position, params.loadSize)
 
+            val stories = responseData.listStory.distinctBy { it.storyID }
+
+            if (responseData.listStory.isEmpty()) {
+                return LoadResult.Error(NoDataException("No data available"))
+            }
+
+            val nextKey = if (responseData.listStory.size < params.loadSize) {
+                null
+            } else {
+                position + 1
+            }
+
             LoadResult.Page(
-                data = responseData.listStory,
+                data = stories,
                 prevKey = if (position == INITIAL_PAGE_INDEX) null else position - 1,
-                nextKey = if (responseData.listStory?.isEmpty() == true) null else position + 1
+                nextKey = nextKey
             )
         } catch (exception: Exception) {
             Log.e(TAG, "Error loading data", exception)

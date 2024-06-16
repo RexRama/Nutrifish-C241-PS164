@@ -10,7 +10,7 @@
         android:id="@+id/mainFrame_profile"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@drawable/home_vector1"
+        android:background="@color/darkGreen"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,7 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
             app:layout_constraintStart_toStartOf="parent"
@@ -30,8 +30,11 @@
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/cv_image_profile"
                 android:layout_width="100dp"
+                app:civ_border_color="@color/white"
+                app:civ_border_width="2dp"
+                android:padding="2dp"
                 android:layout_height="100dp"
-                android:src="@drawable/placeholder_buntel"
+                android:src="@drawable/baseline_person_24"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="ImageContrastCheck" />
@@ -42,6 +45,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:text="@string/placeholder_name"
+                android:textColor="@color/sageGreen"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@id/cv_image_profile"
@@ -51,15 +55,20 @@
                 android:id="@+id/tv_profile_username"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:textColor="@color/white"
                 android:text="@string/placeholder_user_name"
                 android:textSize="20sp"
                 android:textStyle="italic"
                 app:layout_constraintStart_toStartOf="@id/tv_profile_name"
                 app:layout_constraintTop_toBottomOf="@id/tv_profile_name" />
 
-
         </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline18"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.18"/>
 
         <TextView
             android:id="@+id/tv_myPost"
@@ -67,6 +76,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="@string/myPost_title"
+            android:textColor="@color/sageGreen"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@id/topFrame_profile"
@@ -75,6 +85,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:background="@drawable/home_vector1"
             app:layout_constraintTop_toBottomOf="@id/tv_myPost"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

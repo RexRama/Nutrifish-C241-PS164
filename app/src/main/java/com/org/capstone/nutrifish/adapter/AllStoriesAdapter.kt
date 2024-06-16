@@ -13,13 +13,15 @@ import com.org.capstone.nutrifish.utils.Utils
 
 class AllStoriesAdapter :
     PagingDataAdapter<ListStoryItem, AllStoriesAdapter.ListViewHolder>(DIFF_CALLBACK) {
-    private var onItemClickListener: Utils.OnItemClickCallback? = null
+    private var onItemClickCallback: Utils.OnItemClickCallback? = null
 
     class ListViewHolder(var binding: RecipeItemBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         val recipeItem = getItem(position)
-        if (recipeItem!=null) {
+        val storyDate = recipeItem?.storyDateCreated
+        val username = recipeItem?.username.toString()
+        if (recipeItem != null) {
             val context = holder.itemView.context
             if (recipeItem.storyPhotoUrl.isNullOrEmpty()) {
                 Glide.with(context)
@@ -32,15 +34,24 @@ class AllStoriesAdapter :
             }
             holder.apply {
                 binding.tvRecipeTitle.text = recipeItem.storyTitle
-                binding.tvRecipeUsername.text = recipeItem.username.toString()
-                binding.dateCreated.text = recipeItem.storyDateCreated.toString()
+                binding.tvRecipeUsername.text =
+                    if (username.contains("@")) "By: @" + username.substringBefore("@") else "By: @$username"
+                binding.dateCreated.text =
+                    if (storyDate?.contains(",") == true) storyDate.substringBefore(",") else storyDate
+                itemView.setOnClickListener {
+                    onItemClickCallback?.onPostClicked(recipeItem)
+                }
             }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
-        val  binding = RecipeItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = RecipeItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ListViewHolder(binding)
+    }
+
+    fun setOnItemClickCallback(onItemClickCallBack: Utils.OnItemClickCallback) {
+        this.onItemClickCallback = onItemClickCallBack
     }
 
     companion object {

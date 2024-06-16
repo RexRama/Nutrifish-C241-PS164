@@ -1,5 +1,6 @@
 package com.org.capstone.nutrifish.data.remote.model
 
+import android.net.Uri
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
@@ -11,5 +12,7 @@ data class UserModel(
     val email: String,
     val password: String,
     val isLogin: Boolean,
-    val token: String
+    val token: String,
+    val isGoogle: Boolean,
+    val photoUrl: String?
 ) : Parcelable

@@ -18,16 +18,31 @@ class MyStoriesPaging(private val apiService: ApiService,
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, UserStoriesItem> {
         return try {
             val position = params.key ?: INITIAL_PAGE_INDEX
+            Log.d(TAG, "Loading page: $position with load size: ${params.loadSize}")
             val responseData = apiService.getMyStories(userID, position, params.loadSize)
+            Log.d(TAG, "Response received: ${responseData.userStories.size} items")
+
+            if (responseData.userStories.isEmpty()) {
+                Log.d(TAG, "No data available for userID: $userID at position: $position")
+                return LoadResult.Error(NoDataException("No data available"))
+            }
+
+            val nextKey = if (responseData.userStories.size < params.loadSize) {
+                null
+            } else {
+                position + 1
+            }
 
             LoadResult.Page(
                 data = responseData.userStories,
                 prevKey = if (position == INITIAL_PAGE_INDEX) null else position - 1,
-                nextKey = if (responseData.userStories.isEmpty()) null else position + 1
-            )
+                nextKey = nextKey
+            ).also {
+                Log.d(TAG, "Page loaded successfully: $it")
+            }
         } catch (exception: Exception) {
             Log.e(TAG, "Error loading data", exception)
-            return LoadResult.Error(exception)
+            LoadResult.Error(exception)
         }
     }
 
@@ -36,3 +51,5 @@ class MyStoriesPaging(private val apiService: ApiService,
         const val TAG = "MyStoriesPaging"
     }
 }
+
+class NoDataException(message: String) : Exception(message)

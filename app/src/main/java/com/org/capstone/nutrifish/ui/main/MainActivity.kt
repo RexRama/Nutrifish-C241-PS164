@@ -57,6 +57,7 @@ class MainActivity : AppCompatActivity() {
         logoutButton.setOnClickListener{
             DialogUtils(this).dialogLogout("Logout","Anda yakin ingin Logout?"){
                 mainViewModel.logout(this)
+                finish()
                 Log.d("MainActivity", "User ID: ${userModel.username}")
                 Log.d("MainActivity", "User Name: ${userModel.name}")
                 Log.d("MainActivity", "User Email: ${userModel.email}")
@@ -74,10 +75,13 @@ class MainActivity : AppCompatActivity() {
             val token = "Bearer ${user.token}"
             mainViewModel.setToken(token)
             userModel = user
+            Log.d("MainActivity", "User Google: ${userModel.isGoogle}")
+            Log.d("MainActivity", "User Photo: ${userModel.photoUrl}")
             Log.d("MainActivity", "User ID: ${userModel.username}")
             Log.d("MainActivity", "User Name: ${userModel.name}")
             Log.d("MainActivity", "User Email: ${userModel.email}")
             Log.d("MainActivity", "User Token: ${userModel.token}")
+
         }
 
         mainViewModel.moveActivity.observe(this) {
@@ -108,10 +112,22 @@ class MainActivity : AppCompatActivity() {
 
         buttonScan.setOnClickListener {
             navController.navigate(R.id.navigation_scan)
+            "Scan".also { binding.topTitle.text = it }
             buttonPost.visibility = View.GONE
         }
         buttonPost.setOnClickListener {
             Utils().toUpload(this)
+        }
+
+        binding.btBack.setOnClickListener {
+            navController.navigate(R.id.navigation_home)
+            buttonScan.visibility = View.VISIBLE
+            buttonPost.visibility = View.VISIBLE
+            navigation.visibility = View.VISIBLE
+            binding.pageTitle.visibility = View.GONE
+            binding.topTitle.visibility = View.VISIBLE
+            "NutriFish".also { binding.topTitle.text = it }
+            binding.btBack.visibility = View.GONE
         }
 
         navigation.setOnItemSelectedListener { item ->
@@ -120,6 +136,7 @@ class MainActivity : AppCompatActivity() {
                     // Navigate to the home destination
                     navController.navigate(R.id.navigation_home)
                     buttonPost.visibility = View.VISIBLE
+                    "NutriFish".also { binding.topTitle.text = it }
                     true
                 }
 
@@ -130,6 +147,7 @@ class MainActivity : AppCompatActivity() {
                     }
                     navController.navigate(R.id.navigation_profile, bundle)
                     buttonPost.visibility = View.VISIBLE
+                    "Profile".also { binding.topTitle.text = it }
                     true
                 }
 

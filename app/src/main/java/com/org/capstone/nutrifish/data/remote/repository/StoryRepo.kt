@@ -11,10 +11,17 @@ import com.org.capstone.nutrifish.data.remote.response.ListStoryItem
 
 class StoryRepo(private val apiService: ApiService) {
 
+    private var token = ""
+
+    fun setToken(token: String) {
+        this.token = token
+    }
+
     fun getAllStories(): LiveData<PagingData<ListStoryItem>> {
         return Pager(
             config = PagingConfig(
-                pageSize = 1
+                pageSize = 1,
+                initialLoadSize = 10
             ),
             pagingSourceFactory = {
                 StoriesPaging(apiService)

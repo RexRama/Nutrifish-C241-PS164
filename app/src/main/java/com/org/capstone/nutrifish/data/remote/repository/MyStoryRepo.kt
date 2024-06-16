@@ -11,10 +11,17 @@ import com.org.capstone.nutrifish.data.remote.response.UserStoriesItem
 
 class MyStoryRepo(private val apiService: ApiService, private val userID: String) {
 
+    private var token = ""
+
+    fun setToken(token: String) {
+        this.token = token
+    }
+
     fun getMyStories(): LiveData<PagingData<UserStoriesItem>>{
         return Pager(
             config = PagingConfig(
-                pageSize = 1
+                pageSize = 1,
+                initialLoadSize = 10
             ), pagingSourceFactory = {
                 MyStoriesPaging(apiService, userID)
             }

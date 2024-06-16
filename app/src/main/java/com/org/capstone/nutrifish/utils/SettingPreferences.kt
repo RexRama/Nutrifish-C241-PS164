@@ -41,7 +41,9 @@ class SettingPreferences private constructor(private val dataStore: DataStore<Pr
                 preferences[EMAIL_KEY] ?: "",
                 preferences[PASSWORD_KEY] ?: "",
                 preferences[STATE_KEY] ?: false,
-                preferences[TOKEN_KEY] ?: ""
+                preferences[TOKEN_KEY] ?: "",
+                preferences[GOOGLE] ?: false,
+                preferences[PHOTO_KEY] ?: ""
             )
         }
     }
@@ -54,6 +56,8 @@ class SettingPreferences private constructor(private val dataStore: DataStore<Pr
             preferences[EMAIL_KEY] = user.email
             preferences[STATE_KEY] = user.isLogin
             preferences[TOKEN_KEY] = user.token
+            preferences[GOOGLE] = user.isGoogle
+            preferences[PHOTO_KEY] = user.photoUrl ?: ""
         }
     }
 
@@ -68,6 +72,8 @@ class SettingPreferences private constructor(private val dataStore: DataStore<Pr
         private val PASSWORD_KEY = stringPreferencesKey("password")
         private val STATE_KEY = booleanPreferencesKey("state")
         private val TOKEN_KEY = stringPreferencesKey("token")
+        private val GOOGLE = booleanPreferencesKey("isGoogle")
+        private val PHOTO_KEY = stringPreferencesKey("photoUrl")
 
         fun getInstance(dataStore: DataStore<Preferences>) : SettingPreferences {
             return INSTANCE ?: synchronized(this){

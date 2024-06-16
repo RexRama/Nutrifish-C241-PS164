@@ -26,7 +26,7 @@ android {
             val baseUrl = "https://test-express-js-zk5psstbbq-et.a.run.app"
             buildConfigField("String", "BASE_URL", "\"$baseUrl\"")
 
-            val webClientId = "297202612550-hi8p73ot6spt0felvv87rgokllf2r3e1.apps.googleusercontent.com"
+            val webClientId = "firebase-adminsdk-v9fre@nutrifish-425413.iam.gserviceaccount.com"
             buildConfigField ("String", "WEB_CLIENT_ID", "\"${webClientId}\"")
             isMinifyEnabled = false
             proguardFiles(
@@ -39,7 +39,7 @@ android {
             val baseUrl = "https://test-express-js-zk5psstbbq-et.a.run.app"
             buildConfigField("String", "BASE_URL", "\"$baseUrl\"")
 
-            val webClientId = "297202612550-hi8p73ot6spt0felvv87rgokllf2r3e1.apps.googleusercontent.com"
+            val webClientId = "firebase-adminsdk-v9fre@nutrifish-425413.iam.gserviceaccount.com"
             buildConfigField ("String", "WEB_CLIENT_ID", "\"${webClientId}\"")
 
 

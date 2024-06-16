@@ -35,7 +35,7 @@ class CarouselAdapter(private val fishList: List<FishEntity>) :
         holder.apply {
             binding.fishName.text = fishList.fishName
             itemView.setOnClickListener{
-                onItemClickCallBack?.onItemClicked(fishList)
+                onItemClickCallBack?.onFishClicked(fishList)
             }
         }
     }
