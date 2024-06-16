@@ -7,3 +7,12 @@
 | Dwi Tirta Wati    | M014D4KX3085 | Machine Learning | Universitas Udayana |
 | Davina Fardya Zulfa I    | M010D4KX3326 | Machine Learning | Universitas Indonesia |
 | Soraya Sabrina    | M010D4KX3347 | Machine Learning | Universitas Indonesia |
+
+
+
+
+## Repository Branches
+Repository branches for our project:
+  - [Machine Learning](https://github.com/RexRama/Nutrifish-C241-PS164/tree/machinelearning)
+  - [Cloud Computing](https://github.com/RexRama/Nutrifish-C241-PS164/tree/Cloudcomputing)
+  - [Mobile Development](https://github.com/RexRama/Nutrifish-C241-PS164/tree/mobileDevelopment)
