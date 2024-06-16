@@ -20,6 +20,7 @@ class AllStoriesAdapter :
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         val recipeItem = getItem(position)
         val storyDate = recipeItem?.storyDateCreated
+        val username = recipeItem?.username.toString()
         if (recipeItem != null) {
             val context = holder.itemView.context
             if (recipeItem.storyPhotoUrl.isNullOrEmpty()) {
@@ -33,10 +34,11 @@ class AllStoriesAdapter :
             }
             holder.apply {
                 binding.tvRecipeTitle.text = recipeItem.storyTitle
-                binding.tvRecipeUsername.text = recipeItem.username.toString()
+                binding.tvRecipeUsername.text =
+                    if (username.contains("@")) "By: @" + username.substringBefore("@") else "By: @$username"
                 binding.dateCreated.text =
                     if (storyDate?.contains(",") == true) storyDate.substringBefore(",") else storyDate
-                itemView.setOnClickListener{
+                itemView.setOnClickListener {
                     onItemClickCallback?.onPostClicked(recipeItem)
                 }
             }

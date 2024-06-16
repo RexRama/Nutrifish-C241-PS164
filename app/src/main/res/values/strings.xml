@@ -20,11 +20,11 @@
     <string name="RegisterGoogle">Sign Up with Google</string>
     <string name="nutrifish">NutriFish</string>
     <string name="home_greetings">Hello, Welcome!</string>
-    <string name="explore_fish">Explore Fish :</string>
+    <string name="explore_fish">Explore Fish:</string>
     <string name="tv_explore_subtitle">Learn more about the characteristics and benefits of fish!</string>
     <string name="fish_placeholder">NutriFish</string>
-    <string name="story_post">Post</string>
-    <string name="post_subtitle">Learn more about other recipe posts!</string>
+    <string name="story_post">Recipe Ideas:</string>
+    <string name="post_subtitle">Recipe ideas, that might inspire you!</string>
     <string name="recipe_title">Recipe Title</string>
     <string name="tv_recipe_title">Recipe Title</string>
     <string name="tv_recipe_username">Username</string>

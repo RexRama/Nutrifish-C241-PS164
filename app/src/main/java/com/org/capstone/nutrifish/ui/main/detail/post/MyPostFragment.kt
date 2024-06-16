@@ -1,11 +1,13 @@
 package com.org.capstone.nutrifish.ui.main.detail.post
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.TextView
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -19,63 +21,64 @@ class MyPostFragment : Fragment() {
     private var _binding: FragmentMyPostBinding? = null
     private val binding get() = _binding!!
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentMyPostBinding.inflate(inflater, container, false)
-        val view = binding.root
-
-        hideView()
-
+        setupUI()
         getDetail()
-
-
-        return view
+        return binding.root
     }
 
-    private fun hideView() {
-        val hideFab = requireActivity().findViewById<FloatingActionButton>(R.id.fab_postRecipe)
-        hideFab.visibility = View.GONE
-        val pageTitle = requireActivity().findViewById<TextView>(R.id.page_title)
-        pageTitle.visibility = View.VISIBLE
-        "Post".also { pageTitle.text = it }
-        val hideBottomNavigation =
-            requireActivity().findViewById<BottomNavigationView>(R.id.bottom_navbar)
-        hideBottomNavigation.visibility = View.GONE
-        val hideScan = requireActivity().findViewById<FloatingActionButton>(R.id.bt_scan)
-        hideScan.visibility = View.GONE
-        val titleApp = requireActivity().findViewById<TextView>(R.id.top_title)
-        "".also { titleApp.text = it }
+    private fun setupUI() {
+        with(requireActivity()) {
+            findViewById<FloatingActionButton>(R.id.fab_postRecipe).visibility = View.GONE
+            findViewById<TextView>(R.id.page_title).apply {
+                visibility = View.VISIBLE
+                "Post".also { text = it }
+            }
+            findViewById<BottomNavigationView>(R.id.bottom_navbar).visibility = View.GONE
+            findViewById<FloatingActionButton>(R.id.bt_scan).visibility = View.GONE
+            findViewById<TextView>(R.id.top_title).text = ""
+            findViewById<ImageButton>(R.id.bt_back).setOnClickListener {
+                handleBackButton()
+            }
+        }
+    }
+
+    private fun handleBackButton() {
+        findNavController().navigateUp()
+        with(requireActivity()) {
+            findViewById<TextView>(R.id.page_title).visibility = View.GONE
+            "Profile".also { findViewById<TextView>(R.id.top_title).text = it }
+            findViewById<FloatingActionButton>(R.id.bt_scan).visibility = View.VISIBLE
+            findViewById<FloatingActionButton>(R.id.fab_postRecipe).visibility = View.VISIBLE
+            findViewById<BottomNavigationView>(R.id.bottom_navbar).visibility = View.VISIBLE
+            findViewById<ImageButton>(R.id.bt_back).visibility = View.GONE
+        }
     }
 
     @Suppress("DEPRECATION")
     private fun getDetail() {
         val homeData: UserStoriesItem? = arguments?.getParcelable(ProfileFragment.RECIPE_ITEM)
-        setDetails(homeData)
-
+        homeData?.let { setDetails(it) }
     }
 
-    private fun setDetails(homeData: UserStoriesItem?) {
+    private fun setDetails(homeData: UserStoriesItem) {
         requireActivity().runOnUiThread {
-            if (homeData != null) {
-                val recipeTitle = homeData.storyTitle
-                val recipeUsername = homeData.storyUsername.toString()
-                val recipeDescription = homeData.storyDescription
-                val recipeDate = homeData.storyDateCreated.toString()
-                val recipePhoto = homeData.storyPhotoUrl
-
-                with(binding) {
-                    tvRecipeTitle.text = recipeTitle
-                    tvUsername.text =
-                        if (recipeUsername.contains("@")) "@" + recipeUsername.substringBefore("@") else "@$recipeUsername"
-                    descriptionBody.text = recipeDescription
-                    datePosted.text = if (recipeDate.contains(",")) recipeDate.substringBefore(",") else recipeDate
-                    Glide.with(requireContext().applicationContext)
-                        .load(recipePhoto)
-                        .into(ivImageRecipePlaceholder)
+            with(binding) {
+                tvRecipeTitle.text = homeData.storyTitle
+                tvUsername.text = if (homeData.storyUsername?.contains("@") == true) {
+                    "Oleh: @" + homeData.storyUsername.substringBefore("@")
+                } else {
+                    "Oleh: @${homeData.storyUsername}"
                 }
+                descriptionBody.text = homeData.storyDescription
+                datePosted.text = homeData.storyDateCreated?.substringBefore(",")
+                Glide.with(requireContext().applicationContext)
+                    .load(homeData.storyPhotoUrl)
+                    .into(ivImageRecipePlaceholder)
             }
         }
     }
@@ -84,6 +87,4 @@ class MyPostFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
-
 }

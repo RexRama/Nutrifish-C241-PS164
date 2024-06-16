@@ -21,7 +21,7 @@ class MyStoryRepo(private val apiService: ApiService, private val userID: String
         return Pager(
             config = PagingConfig(
                 pageSize = 1,
-                initialLoadSize = 3
+                initialLoadSize = 10
             ), pagingSourceFactory = {
                 MyStoriesPaging(apiService, userID)
             }

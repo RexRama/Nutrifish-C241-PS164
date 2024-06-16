@@ -21,6 +21,7 @@ class MyStoryAdapter :
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         val myStoryItem = getItem(position)
         val storyDate = myStoryItem?.storyDateCreated
+        val username = myStoryItem?.storyUsername.toString()
         if (myStoryItem != null) {
             val context = holder.itemView.context
             if (myStoryItem.storyPhotoUrl.isNullOrEmpty()) {
@@ -39,7 +40,7 @@ class MyStoryAdapter :
                         dateCreated.text =
                             if (storyDate.contains(",")) storyDate.substringBefore(",") else storyDate
                     }
-                    tvRecipeUsername.visibility = View.GONE
+                    tvRecipeUsername.text = if (username.contains("@")) "By: @" + username.substringBefore("@") else "By: @$username"
                     itemView.setOnClickListener{
                         onItemClickCallback?.onMyPostClicked(myStoryItem)
                     }

@@ -20,7 +20,8 @@ class StoryRepo(private val apiService: ApiService) {
     fun getAllStories(): LiveData<PagingData<ListStoryItem>> {
         return Pager(
             config = PagingConfig(
-                pageSize = 1
+                pageSize = 1,
+                initialLoadSize = 10
             ),
             pagingSourceFactory = {
                 StoriesPaging(apiService)

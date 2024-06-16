@@ -66,7 +66,7 @@ class DetailPostFragment : Fragment() {
                 with(binding) {
                     tvRecipeTitle.text = recipeTitle
                     tvUsername.text =
-                        if (recipeUsername.contains("@")) "@" + recipeUsername.substringBefore("@") else "@$recipeUsername"
+                        if (recipeUsername.contains("@")) "Oleh: @" + recipeUsername.substringBefore("@") else "Oleh: @$recipeUsername"
                     descriptionBody.text = recipeDescription
                     datePosted.text = if (recipeDate.contains(",")) recipeDate.substringBefore(",") else recipeDate
                     Glide.with(requireContext().applicationContext)

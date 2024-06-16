@@ -34,6 +34,6 @@ data class UserStoriesItem(
 	@field:SerializedName("storyDescription")
 	val storyDescription: String? = null,
 
-	@field:SerializedName("storyUsername")
+	@field:SerializedName("username")
 	val storyUsername: String? = null
 ) : Parcelable
