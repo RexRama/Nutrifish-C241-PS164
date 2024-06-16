@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
@@ -6,6 +8,8 @@ plugins {
     id("com.google.devtools.ksp") version "1.9.21-1.0.15"
     id("kotlin-parcelize")
 }
+
+
 
 android {
     namespace = "com.org.capstone.nutrifish"
@@ -19,15 +23,17 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        val properties = Properties()
+        properties.load(project.rootProject.file("local.properties").inputStream())
+
+        // Set BASE_URL and WEB_CLIENT_ID in BuildConfig from your local.properties
+        buildConfigField("String", "BASE_URL", "\"${properties.getProperty("BASE_URL")}\"")
+        buildConfigField("String", "WEB_CLIENT_ID", "\"${properties.getProperty("WEB_CLIENT_ID")}\"")
     }
 
     buildTypes {
         release {
-            val baseUrl = "https://test-express-js-zk5psstbbq-et.a.run.app"
-            buildConfigField("String", "BASE_URL", "\"$baseUrl\"")
-
-            val webClientId = "firebase-adminsdk-v9fre@nutrifish-425413.iam.gserviceaccount.com"
-            buildConfigField ("String", "WEB_CLIENT_ID", "\"${webClientId}\"")
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
@@ -36,12 +42,6 @@ android {
         }
 
         debug {
-            val baseUrl = "https://test-express-js-zk5psstbbq-et.a.run.app"
-            buildConfigField("String", "BASE_URL", "\"$baseUrl\"")
-
-            val webClientId = "firebase-adminsdk-v9fre@nutrifish-425413.iam.gserviceaccount.com"
-            buildConfigField ("String", "WEB_CLIENT_ID", "\"${webClientId}\"")
-
 
         }
     }
@@ -59,6 +59,7 @@ android {
         mlModelBinding = true
     }
 }
+
 
 dependencies {
 
