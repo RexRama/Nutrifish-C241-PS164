@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -31,7 +32,7 @@ class FishDetailFragment : Fragment() {
         _binding = FragmentFishDetailBinding.inflate(inflater, container, false)
         val view = binding.root
 
-        hideView()
+        setupUI()
 
         getDetail()
 
@@ -39,20 +40,18 @@ class FishDetailFragment : Fragment() {
     }
 
 
-
-    private fun hideView() {
-        val hideFab = requireActivity().findViewById<FloatingActionButton>(R.id.fab_postRecipe)
-        hideFab.visibility = View.GONE
-        val pageTitle = requireActivity().findViewById<TextView>(R.id.page_title)
-        pageTitle.visibility = View.VISIBLE
-        "Fish Detail".also { pageTitle.text = it }
-        val hideBottomNavigation =
-            requireActivity().findViewById<BottomNavigationView>(R.id.bottom_navbar)
-        hideBottomNavigation.visibility = View.GONE
-        val hideScan = requireActivity().findViewById<FloatingActionButton>(R.id.bt_scan)
-        hideScan.visibility = View.GONE
-        val titleApp = requireActivity().findViewById<TextView>(R.id.top_title)
-        "".also { titleApp.text = it }
+    private fun setupUI() {
+        with(requireActivity()) {
+            findViewById<FloatingActionButton>(R.id.fab_postRecipe).visibility = View.GONE
+            findViewById<TextView>(R.id.page_title).apply {
+                visibility = View.VISIBLE
+                "Fish Detail".also { text = it }
+            }
+            findViewById<BottomNavigationView>(R.id.bottom_navbar).visibility = View.GONE
+            findViewById<FloatingActionButton>(R.id.bt_scan).visibility = View.GONE
+            findViewById<TextView>(R.id.top_title).text = ""
+            findViewById<ImageButton>(R.id.bt_back).visibility= View.VISIBLE
+        }
     }
 
 

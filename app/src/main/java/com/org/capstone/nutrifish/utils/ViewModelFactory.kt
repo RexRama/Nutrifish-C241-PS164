@@ -25,7 +25,7 @@ class ViewModelFactory(
         } else if (modelClass.isAssignableFrom(FishDetailViewModel::class.java)) {
             return FishDetailViewModel(context) as T
         } else if (modelClass.isAssignableFrom(HomeViewModel::class.java)) {
-            return HomeViewModel(context, Injection.provideStoryRepo()) as T
+            return HomeViewModel(pref,context, Injection.provideStoryRepo()) as T
         } else if (modelClass.isAssignableFrom(WelcomeViewModel::class.java)) {
             return WelcomeViewModel(pref, DialogUtils(context)) as T
         } else if (modelClass.isAssignableFrom(MainViewModel::class.java)) {
@@ -38,7 +38,7 @@ class ViewModelFactory(
         } else if (modelClass.isAssignableFrom(SplashViewModel::class.java)) {
             return SplashViewModel(pref) as T
         } else if (modelClass.isAssignableFrom(ProfileViewModel::class.java)) {
-            return ProfileViewModel(Injection.provideMyStoryRepo(context)) as T
+            return ProfileViewModel(pref,Injection.provideMyStoryRepo(context)) as T
         } else if (modelClass.isAssignableFrom(UploadViewModel::class.java)) {
             return UploadViewModel(pref, DialogUtils(context)) as T
         }

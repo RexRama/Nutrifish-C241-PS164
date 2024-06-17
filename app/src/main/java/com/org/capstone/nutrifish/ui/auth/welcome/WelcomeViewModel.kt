@@ -35,6 +35,15 @@ class WelcomeViewModel(
 //    private lateinit var googleSignInClient: GoogleSignInClient
 
 
+    fun capitalizeFirstWord(input: String): String {
+        if (input.isBlank()) return input
+
+        val words = input.split(" ").toMutableList()
+        words[0] = words[0].replaceFirstChar { it.uppercase() }
+
+        return words.joinToString(" ")
+    }
+
     fun loginUser(user: LoginModel) {
         _isLoading.value = true
         val client = apiService.loginUser(user)
@@ -44,11 +53,12 @@ class WelcomeViewModel(
                 if (response.isSuccessful) {
                     val responseBody = response.body()
                     if (responseBody != null && !responseBody.error) {
+                        val capitalizedUsername = capitalizeFirstWord(responseBody.loginResult.username)
                         isLogin(responseBody.loginResult.token)
                         saveUserToPreferences(
                             responseBody.loginResult.userID,
                             responseBody.loginResult.name,
-                            responseBody.loginResult.username,
+                            capitalizedUsername,
                             responseBody.loginResult.token,
                             false,
                             null
