@@ -7,7 +7,7 @@ import androidx.paging.PagingData
 import androidx.paging.liveData
 import com.org.capstone.nutrifish.data.remote.api.ApiService
 import com.org.capstone.nutrifish.data.remote.paging.MyStoriesPaging
-import com.org.capstone.nutrifish.data.remote.response.UserStoriesItem
+import com.org.capstone.nutrifish.data.remote.response.ListStoryItem
 
 class MyStoryRepo(private val apiService: ApiService, private val userID: String) {
 
@@ -17,7 +17,7 @@ class MyStoryRepo(private val apiService: ApiService, private val userID: String
         this.token = token
     }
 
-    fun getMyStories(): LiveData<PagingData<UserStoriesItem>>{
+    fun getMyStories(): LiveData<PagingData<ListStoryItem>>{
         return Pager(
             config = PagingConfig(
                 pageSize = 1,

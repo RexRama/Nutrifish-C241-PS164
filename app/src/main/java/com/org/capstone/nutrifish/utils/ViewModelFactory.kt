@@ -23,7 +23,7 @@ class ViewModelFactory(
         if (modelClass.isAssignableFrom(RegisterViewModel::class.java)) {
             return RegisterViewModel(DialogUtils(context)) as T
         } else if (modelClass.isAssignableFrom(FishDetailViewModel::class.java)) {
-            return FishDetailViewModel(context) as T
+            return FishDetailViewModel(context, Injection.provideStoryRepo()) as T
         } else if (modelClass.isAssignableFrom(HomeViewModel::class.java)) {
             return HomeViewModel(pref,context, Injection.provideStoryRepo()) as T
         } else if (modelClass.isAssignableFrom(WelcomeViewModel::class.java)) {

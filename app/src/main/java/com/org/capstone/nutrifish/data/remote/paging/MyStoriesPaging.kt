@@ -4,18 +4,18 @@ import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.org.capstone.nutrifish.data.remote.api.ApiService
-import com.org.capstone.nutrifish.data.remote.response.UserStoriesItem
+import com.org.capstone.nutrifish.data.remote.response.ListStoryItem
 
 class MyStoriesPaging(private val apiService: ApiService,
-    private val userID: String) : PagingSource<Int, UserStoriesItem>() {
-    override fun getRefreshKey(state: PagingState<Int, UserStoriesItem>): Int? {
+    private val userID: String) : PagingSource<Int, ListStoryItem>() {
+    override fun getRefreshKey(state: PagingState<Int, ListStoryItem>): Int? {
         return state.anchorPosition?.let { anchor ->
             val anchorPage = state.closestPageToPosition(anchor)
             anchorPage?.prevKey?.plus(1) ?: anchorPage?.nextKey?.minus(1)
         }
     }
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, UserStoriesItem> {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ListStoryItem> {
         return try {
             val position = params.key ?: INITIAL_PAGE_INDEX
             Log.d(TAG, "Loading page: $position with load size: ${params.loadSize}")

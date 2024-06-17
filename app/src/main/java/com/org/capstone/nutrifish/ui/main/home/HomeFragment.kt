@@ -5,12 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.org.capstone.nutrifish.R
 import com.org.capstone.nutrifish.adapter.AllStoriesAdapter
 import com.org.capstone.nutrifish.adapter.CarouselAdapter
@@ -18,7 +21,6 @@ import com.org.capstone.nutrifish.adapter.LoadingAdapter
 import com.org.capstone.nutrifish.data.local.entity.FishEntity
 import com.org.capstone.nutrifish.data.remote.model.UserModel
 import com.org.capstone.nutrifish.data.remote.response.ListStoryItem
-import com.org.capstone.nutrifish.data.remote.response.UserStoriesItem
 import com.org.capstone.nutrifish.databinding.FragmentHomeBinding
 import com.org.capstone.nutrifish.utils.SettingPreferences
 import com.org.capstone.nutrifish.utils.Utils
@@ -40,10 +42,21 @@ class HomeFragment : Fragment() {
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val view = binding.root
+        setUI()
         setStory()
-
         setViewModel()
         return view
+    }
+
+    private fun setUI() {
+        with(requireActivity()) {
+            findViewById<TextView>(R.id.page_title).visibility = View.GONE
+            "NutriFish".also { findViewById<TextView>(R.id.top_title).text = it }
+            findViewById<FloatingActionButton>(R.id.bt_scan).visibility = View.VISIBLE
+            findViewById<FloatingActionButton>(R.id.fab_postRecipe).visibility = View.VISIBLE
+            findViewById<BottomNavigationView>(R.id.bottom_navbar).visibility = View.VISIBLE
+            findViewById<ImageButton>(R.id.bt_back).visibility = View.GONE
+        }
     }
 
     private fun setViewModel() {
@@ -108,9 +121,6 @@ class HomeFragment : Fragment() {
                 )
             }
 
-            override fun onMyPostClicked(data: UserStoriesItem) {
-                // DO nothing
-            }
         })
 
 
@@ -143,9 +153,6 @@ class HomeFragment : Fragment() {
                             // do nothing
                         }
 
-                        override fun onMyPostClicked(data: UserStoriesItem) {
-                            //Do nothing
-                        }
                     })
                 }
             }
