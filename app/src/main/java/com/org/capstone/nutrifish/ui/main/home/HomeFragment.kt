@@ -16,6 +16,7 @@ import com.org.capstone.nutrifish.adapter.AllStoriesAdapter
 import com.org.capstone.nutrifish.adapter.CarouselAdapter
 import com.org.capstone.nutrifish.adapter.LoadingAdapter
 import com.org.capstone.nutrifish.data.local.entity.FishEntity
+import com.org.capstone.nutrifish.data.remote.model.UserModel
 import com.org.capstone.nutrifish.data.remote.response.ListStoryItem
 import com.org.capstone.nutrifish.data.remote.response.UserStoriesItem
 import com.org.capstone.nutrifish.databinding.FragmentHomeBinding
@@ -31,6 +32,7 @@ class HomeFragment : Fragment() {
     private lateinit var carouselAdapter: CarouselAdapter
     private lateinit var homeViewModel: HomeViewModel
     private lateinit var storyAdapter: AllStoriesAdapter
+    private lateinit var userModel: UserModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,6 +55,11 @@ class HomeFragment : Fragment() {
             setCarousel(fishList)
         }
 
+        homeViewModel.getUser().observe(viewLifecycleOwner) { user ->
+            userModel = user
+            setHome(userModel)
+        }
+
         homeViewModel.loading.observe(viewLifecycleOwner) {
             showLoading(it)
         }
@@ -61,6 +68,14 @@ class HomeFragment : Fragment() {
             storyAdapter.submitData(lifecycle, pagingData)
         }
 
+    }
+
+    private fun setHome(userModel: UserModel) {
+        requireActivity().runOnUiThread {
+            val username = userModel.username.toString()
+            binding.homeGreetings.text =
+                if (username.contains("@")) "Hello, " + username.substringBefore("@") else "Hello, $username"
+        }
     }
 
     private fun setStory() {
@@ -77,7 +92,7 @@ class HomeFragment : Fragment() {
             showStoriesLoading(loadState)
         }
 
-        storyAdapter.setOnItemClickCallback(object : Utils.OnItemClickCallback{
+        storyAdapter.setOnItemClickCallback(object : Utils.OnItemClickCallback {
             override fun onFishClicked(data: FishEntity) {
                 // Do nothing
             }
@@ -125,11 +140,11 @@ class HomeFragment : Fragment() {
                         }
 
                         override fun onPostClicked(data: ListStoryItem) {
-                           // do nothing
+                            // do nothing
                         }
 
                         override fun onMyPostClicked(data: UserStoriesItem) {
-                           //Do nothing
+                            //Do nothing
                         }
                     })
                 }

@@ -54,8 +54,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun setButton() {
         val logoutButton = binding.btLogout
-        logoutButton.setOnClickListener{
-            DialogUtils(this).dialogLogout("Logout","Anda yakin ingin Logout?"){
+        logoutButton.setOnClickListener {
+            DialogUtils(this).dialogLogout("Logout", "Anda yakin ingin Logout?") {
                 mainViewModel.logout(this)
                 finish()
                 Log.d("MainActivity", "User ID: ${userModel.username}")
@@ -71,7 +71,7 @@ class MainActivity : AppCompatActivity() {
         val viewModelFactory = ViewModelFactory(this, dataStore)
         mainViewModel = ViewModelProvider(this, viewModelFactory)[MainViewModel::class.java]
 
-        mainViewModel.getUser()?.observe(this) {user->
+        mainViewModel.getUser()?.observe(this) { user ->
             val token = "Bearer ${user.token}"
             mainViewModel.setToken(token)
             userModel = user
@@ -98,7 +98,11 @@ class MainActivity : AppCompatActivity() {
                     finishAffinity()
                 } else {
                     doubleBackToExit = true
-                    Toast.makeText(this@MainActivity, "Press back again to exit", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this@MainActivity,
+                        "Press back again to exit",
+                        Toast.LENGTH_SHORT
+                    ).show()
                     Handler(Looper.getMainLooper()).postDelayed({ doubleBackToExit = false }, 2000)
                 }
             }
@@ -142,10 +146,7 @@ class MainActivity : AppCompatActivity() {
 
                 R.id.to_profile -> {
                     // Navigate to the profile destination
-                    val bundle = Bundle().apply {
-                        putParcelable("user", this@MainActivity.userModel)
-                    }
-                    navController.navigate(R.id.navigation_profile, bundle)
+                    navController.navigate(R.id.navigation_profile)
                     buttonPost.visibility = View.VISIBLE
                     "Profile".also { binding.topTitle.text = it }
                     true

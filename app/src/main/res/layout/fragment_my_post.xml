@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginBottom="20dp"
+    android:paddingBottom="25dp"
     tools:context=".ui.main.detail.post.MyPostFragment">
 
     <com.google.android.material.card.MaterialCardView
@@ -18,7 +20,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="4dp">
 
-        <ScrollView
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -110,7 +112,7 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </ScrollView>
+        </androidx.core.widget.NestedScrollView>
 
 
 

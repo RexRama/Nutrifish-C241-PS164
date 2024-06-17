@@ -33,6 +33,7 @@ class ProfileFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var profileViewModel: ProfileViewModel
     private lateinit var myStoryAdapter: MyStoryAdapter
+    private lateinit var userModel: UserModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,7 +42,6 @@ class ProfileFragment : Fragment() {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
         val view = binding.root
 
-        setView()
 
         setStory()
 
@@ -56,6 +56,11 @@ class ProfileFragment : Fragment() {
 
         profileViewModel.fetchMyStory().observe(viewLifecycleOwner) { pagingData ->
             myStoryAdapter.submitData(lifecycle, pagingData)
+        }
+
+        profileViewModel.getUser().observe(viewLifecycleOwner){ user ->
+            userModel = user
+            setView(userModel)
         }
     }
 
@@ -119,18 +124,17 @@ class ProfileFragment : Fragment() {
     }
 
 
-    @Suppress("DEPRECATION")
-    private fun setView() {
+    private fun setView(userModel: UserModel) {
         requireActivity().runOnUiThread {
-            val user = arguments?.getParcelable<UserModel>("user")
-            val username = user?.username
-            binding.tvProfileName.text = user?.name
+            val user = userModel
+            val username = user.username
+            binding.tvProfileName.text = user.name
             if (username != null) {
                 binding.tvProfileUsername.text =
                     if (username.contains("@")) "@" + username.substringBefore("@") else "@$username"
 
             }
-            if (user?.isGoogle == true) {
+            if (user.isGoogle) {
                 Glide.with(requireContext().applicationContext)
                     .load(user.photoUrl)
                     .into(binding.cvImageProfile)
