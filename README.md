@@ -6,11 +6,14 @@
 
 
 # Installation Guide
-## Minimum Requirements:
-- SDK Level = 26 <br>
 Fork, Clone or download this repository as a zip or Download the APK from:
 - [NutriFish APK]()
 
+## Requirements:
+- Minimum SDK Level = 26
+- Kotlin 100%
+- Android Studio IDE
+  
 ## Dependencies:
 Make sure you have installed all the necessary dependencies:
 - [Circle Image View](https://github.com/hdodenhof/CircleImageView)
