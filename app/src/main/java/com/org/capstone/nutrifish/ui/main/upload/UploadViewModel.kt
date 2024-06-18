@@ -1,6 +1,5 @@
 package com.org.capstone.nutrifish.ui.main.upload
 
-import android.location.Location
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -16,17 +15,13 @@ import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.http.Part
 
-class UploadViewModel(val pref: SettingPreferences, val dialogUtils: DialogUtils) : ViewModel() {
+class UploadViewModel(private val pref: SettingPreferences, val dialogUtils: DialogUtils) : ViewModel() {
 
     private val apiService = ApiConfig.apiService()
 
     private val _moveActivity = MutableLiveData<Boolean>()
     val moveActivity: LiveData<Boolean> = _moveActivity
-
-    private val _location = MutableLiveData<Location>()
-    val location: LiveData<Location> = _location
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading

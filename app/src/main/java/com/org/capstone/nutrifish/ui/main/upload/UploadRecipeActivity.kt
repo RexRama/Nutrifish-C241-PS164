@@ -10,7 +10,6 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.ViewModelProvider
 import com.org.capstone.nutrifish.databinding.ActivityUploadRecipeBinding
 import com.org.capstone.nutrifish.utils.ImageUtils
@@ -59,7 +58,7 @@ class UploadRecipeActivity : AppCompatActivity() {
     }
 
     private fun showLoading(it: Boolean) {
-        // Implement loading logic here
+        binding.pbUploadStory.visibility = if (it) View.VISIBLE else View.GONE
     }
 
     private fun setProcess() {

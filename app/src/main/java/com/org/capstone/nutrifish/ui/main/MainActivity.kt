@@ -57,7 +57,6 @@ class MainActivity : AppCompatActivity() {
         logoutButton.setOnClickListener {
             DialogUtils(this).dialogLogout("Logout", "Anda yakin ingin Logout?") {
                 mainViewModel.logout(this)
-                finish()
                 Log.d("MainActivity", "User ID: ${userModel.username}")
                 Log.d("MainActivity", "User Name: ${userModel.name}")
                 Log.d("MainActivity", "User Email: ${userModel.email}")
