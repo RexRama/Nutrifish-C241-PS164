@@ -8,7 +8,7 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.org.capstone.nutrifish.data.remote.model.UserModel
 import com.org.capstone.nutrifish.data.remote.repository.MyStoryRepo
-import com.org.capstone.nutrifish.data.remote.response.UserStoriesItem
+import com.org.capstone.nutrifish.data.remote.response.ListStoryItem
 import com.org.capstone.nutrifish.utils.SettingPreferences
 
 class ProfileViewModel(private val preferences: SettingPreferences,provideMyStoryRepo: MyStoryRepo) : ViewModel() {
@@ -22,7 +22,7 @@ class ProfileViewModel(private val preferences: SettingPreferences,provideMyStor
         return preferences.getUser().asLiveData()
     }
 
-    fun fetchMyStory(): LiveData<PagingData<UserStoriesItem>> {
+    fun fetchMyStory(): LiveData<PagingData<ListStoryItem>> {
         return myStoryRepo.getMyStories()
             .cachedIn(viewModelScope)
     }

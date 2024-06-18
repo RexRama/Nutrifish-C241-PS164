@@ -6,6 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".ui.main.profile.ProfileFragment">
 
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/mainFrame_profile"
         android:layout_width="match_parent"
@@ -84,10 +93,10 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:background="@drawable/home_vector1"
+            android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/tv_myPost"
             app:layout_constraintStart_toStartOf="parent"
+            android:background="@color/backgroundWhite"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent">
 
@@ -96,6 +105,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/pb_stories"
                 android:visibility="gone"
+                android:layout_marginVertical="30dp"
                 tools:visibility="visible"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -121,7 +131,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/post_recipe_rv"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="12dp"
@@ -136,9 +146,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.6"/>
+                app:layout_constraintGuide_percent="0.2"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

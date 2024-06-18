@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
+import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -14,13 +15,14 @@ import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.org.capstone.nutrifish.R
+import com.org.capstone.nutrifish.adapter.AllStoriesAdapter
 import com.org.capstone.nutrifish.adapter.LoadingAdapter
-import com.org.capstone.nutrifish.adapter.MyStoryAdapter
 import com.org.capstone.nutrifish.data.local.entity.FishEntity
 import com.org.capstone.nutrifish.data.remote.model.UserModel
 import com.org.capstone.nutrifish.data.remote.response.ListStoryItem
-import com.org.capstone.nutrifish.data.remote.response.UserStoriesItem
 import com.org.capstone.nutrifish.databinding.FragmentProfileBinding
 import com.org.capstone.nutrifish.utils.SettingPreferences
 import com.org.capstone.nutrifish.utils.Utils
@@ -32,7 +34,7 @@ class ProfileFragment : Fragment() {
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
     private lateinit var profileViewModel: ProfileViewModel
-    private lateinit var myStoryAdapter: MyStoryAdapter
+    private lateinit var myStoryAdapter: AllStoriesAdapter
     private lateinit var userModel: UserModel
 
     override fun onCreateView(
@@ -42,11 +44,22 @@ class ProfileFragment : Fragment() {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
         val view = binding.root
 
-
+        setUI()
         setStory()
 
         setViewModel()
         return view
+    }
+
+    private fun setUI() {
+        with(requireActivity()) {
+            findViewById<TextView>(R.id.page_title).visibility = View.GONE
+            "Profile".also { findViewById<TextView>(R.id.top_title).text = it }
+            findViewById<FloatingActionButton>(R.id.bt_scan).visibility = View.VISIBLE
+            findViewById<FloatingActionButton>(R.id.fab_postRecipe).visibility = View.VISIBLE
+            findViewById<BottomNavigationView>(R.id.bottom_navbar).visibility = View.VISIBLE
+            findViewById<ImageButton>(R.id.bt_back).visibility = View.GONE
+        }
     }
 
     private fun setViewModel() {
@@ -66,7 +79,7 @@ class ProfileFragment : Fragment() {
 
 
     private fun setStory() {
-        myStoryAdapter = MyStoryAdapter()
+        myStoryAdapter = AllStoriesAdapter()
         binding.postRecipeRv.apply {
             layoutManager = LinearLayoutManager(requireContext().applicationContext)
             adapter = myStoryAdapter.withLoadStateFooter(
@@ -85,17 +98,13 @@ class ProfileFragment : Fragment() {
             }
 
             override fun onPostClicked(data: ListStoryItem) {
-                //Do nothing
-            }
-
-            override fun onMyPostClicked(data: UserStoriesItem) {
                 val showBack = requireActivity().findViewById<ImageButton>(R.id.bt_back)
                 showBack.visibility = View.VISIBLE
                 val bundle = Bundle().apply {
                     putParcelable(RECIPE_ITEM, data)
                 }
                 findNavController().navigate(
-                    R.id.action_navigation_profile_to_navigation_myPost, bundle
+                    R.id.action_navigation_profile_to_navigation_detailPost, bundle
                 )
             }
 

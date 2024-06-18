@@ -1,6 +1,5 @@
 package com.org.capstone.nutrifish.data.remote.model
 
-import android.net.Uri
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
