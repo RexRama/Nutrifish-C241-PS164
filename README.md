@@ -33,3 +33,11 @@ Make sure you have installed all the necessary dependencies:
 ## Add this to your local properties
 BASE_URL=<YOUR_BASE_URL"><br>
 WEB_CLIENT_ID=<YOUR_WEB_CLIENT_ID>
+
+
+## Other Path Repository
+Repository branches for our project:
+  - [NutriFish](https://github.com/NutriFish-C241-PS164/NutriFish-C241-PS164-Apps)
+  - [Machine Learning](https://github.com/RexRama/Nutrifish-C241-PS164/tree/machinelearning)
+  - [Cloud Computing](https://github.com/RexRama/Nutrifish-C241-PS164/tree/Cloudcomputing)
+  - [Mobile Development](https://github.com/RexRama/Nutrifish-C241-PS164/tree/mobileDevelopment)
