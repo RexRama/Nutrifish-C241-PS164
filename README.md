@@ -7,7 +7,7 @@
 
 # Installation Guide
 ## Minimum Requirements:
-- SDK Level = 26
+- SDK Level = 26 <br>
 Fork, Clone or download this repository as a zip or Download the APK from:
 - [NutriFish APK]()
 
