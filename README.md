@@ -7,7 +7,7 @@
 
 # Installation Guide
 Fork, Clone or download this repository as a zip or Download the APK from:
-- [NutriFish APK]()
+- [NutriFish APK](https://github.com/NutriFish-C241-PS164/Nutrifish-C241-PS164-MobileDevelopment/releases/download/v1.0/NutriFish-v1.0.apk)
 
 ## Requirements:
 - Minimum SDK Level = 26
