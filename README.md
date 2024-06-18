@@ -1,4 +1,6 @@
 # Installation Guide
+Fork, Clone or download this repository as a zip
+
 ## Dependencies:
 Make sure you have installed all the necessary dependencies:
 - [Circle Image View](https://github.com/hdodenhof/CircleImageView)
