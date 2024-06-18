@@ -1,5 +1,15 @@
+# NutriFish
+
+
+## Application Architecture
+![view](https://github.com/NutriFish-C241-PS164/NutriFish-C241-PS164-Apps/blob/main/MVVM.png)
+
+
 # Installation Guide
-Fork, Clone or download this repository as a zip
+## Minimum Requirements:
+- SDK Level = 26
+Fork, Clone or download this repository as a zip or Download the APK from:
+- [NutriFish APK]()
 
 ## Dependencies:
 Make sure you have installed all the necessary dependencies:
@@ -14,6 +24,8 @@ Make sure you have installed all the necessary dependencies:
 - [Navigation](https://developer.android.com/guide/navigation)
 - [TensorFlow Lite](https://www.tensorflow.org/lite/android/quickstart)
 
+## Tflite Machine Learning Model
+[tflite model]()
 
 ## Add this to your local properties
 BASE_URL=<YOUR_BASE_URL"><br>
