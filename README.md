@@ -38,6 +38,6 @@ WEB_CLIENT_ID=<YOUR_WEB_CLIENT_ID>
 ## Other Path Repository
 Repository branches for our project:
   - [NutriFish](https://github.com/NutriFish-C241-PS164/NutriFish-C241-PS164-Apps)
-  - [Machine Learning](https://github.com/NutriFish-C241-PS164/Nutrifish-C241-PS164-MobileDevelopment)
+  - [Machine Learning](https://github.com/NutriFish-C241-PS164/Machine-Learning)
   - [Cloud Computing](https://github.com/NutriFish-C241-PS164/NutriFish-C241-PS164-CloudComputing)
   - [Mobile Development](https://github.com/NutriFish-C241-PS164/Nutrifish-C241-PS164-MobileDevelopment)
